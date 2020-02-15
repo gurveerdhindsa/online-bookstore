@@ -1,9 +1,20 @@
 package bookstore;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Book class
  */
+@Entity
 public class Book {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private long id;
+
     private String isbn;
     private String title;
     private String author;
@@ -19,13 +30,30 @@ public class Book {
      * @param publisher the publisher
      * @param cost      the cost
      */
-    public Book(String isbn, String title, String author, String publisher, double cost) {
+    public Book(long id , String isbn, String title, String author, String publisher, double cost) {
+        this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.cost = cost;
     }
+    public Book(){
+
+    }
+
+    /**
+     * Gets book id.
+     *
+     * @return the ID
+     */
+    public long getId() { return id; }
+    /**
+     * Sets book id.
+     *
+     * @param id the id
+     */
+    public void setId(long id) { this.id = id; }
 
     /**
      * Gets isbn.
@@ -127,6 +155,6 @@ public class Book {
         if (this == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         Book book = (Book)obj;
-        return this.isbn.equals(book.isbn) && this.publisher.equals(book.publisher) && this.author.equals(book.author) && this.cost == book.cost && this.title.equals(book.title);
+        return this.id == book.id && this.isbn.equals(book.isbn) && this.publisher.equals(book.publisher) && this.author.equals(book.author) && this.cost == book.cost && this.title.equals(book.title);
     }
 }
