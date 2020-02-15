@@ -7,6 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @SpringBootApplication
+/**
+ * Start of the application
+ */
 public class Launcher {
 
 
