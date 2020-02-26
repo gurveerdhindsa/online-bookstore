@@ -1,7 +1,7 @@
-package bookstore;
+package BookStore;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.BookRepository;
+import Repository.BookRepository;
 
 /**
  * Bookstore Owner can upload and edit Book information
