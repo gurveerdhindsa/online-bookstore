@@ -9,7 +9,7 @@ public class Book {
     private String author;
     private String publisher;
     private double cost;
-
+    private long id;
     /**
      * Instantiates a new Book.
      *
@@ -19,12 +19,15 @@ public class Book {
      * @param publisher the publisher
      * @param cost      the cost
      */
-    public Book(String isbn, String title, String author, String publisher, double cost) {
+
+    public Book(long id, String isbn, String title, String author, String publisher, double cost) {
+        this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.cost = cost;
+
     }
 
     /**
