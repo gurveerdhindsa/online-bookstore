@@ -1,5 +1,4 @@
-import bookstore.Book;
-import bookstore.User;
+import BookStore.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
