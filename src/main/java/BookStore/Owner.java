@@ -1,4 +1,4 @@
-package BookStore;
+package Bookstore;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import Repository.BookRepository;

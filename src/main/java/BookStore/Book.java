@@ -1,4 +1,4 @@
-package BookStore;
+package Bookstore;
 
 /**
  * Book class
@@ -28,6 +28,14 @@ public class Book {
         this.publisher = publisher;
         this.cost = cost;
 
+    }
+
+    /**
+     * Gets the Id
+     * @return the Id
+     */
+    public Long getId() {
+        return  this.id;
     }
 
     /**
@@ -132,4 +140,6 @@ public class Book {
         Book book = (Book)obj;
         return this.isbn.equals(book.isbn) && this.publisher.equals(book.publisher) && this.author.equals(book.author) && this.cost == book.cost && this.title.equals(book.title);
     }
+
+
 }
