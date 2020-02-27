@@ -1,17 +1,10 @@
 package Repository;
 
-
-import bookstore.Book;
-import org.springframework.context.annotation.ComponentScan;
+import Bookstore.Book;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-
-import BookStore.Book;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +12,7 @@ import java.util.Optional;
  *  CRUD launch.bookstore.repository for Book Entity
  *
  */
-@ComponentScan
+
 @Repository
 public interface BookRepository extends MongoRepository<Book, Long> {
 
