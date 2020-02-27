@@ -1,12 +1,10 @@
-import BookStore.User;
+package Bookstore;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-/**
- * UserTest class
- */
+import static org.junit.Assert.*;
 
 public class UserTest {
     User user;
@@ -81,9 +79,4 @@ public class UserTest {
         assertTrue(user.isEqual(user2));
     }
 
-
-
-
-
 }
-

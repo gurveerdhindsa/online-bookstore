@@ -1,5 +1,8 @@
-package BookStore;
-import javax.persistence.*;
+package Bookstore;
+import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  * User can search for, and browse through, the books in the bookstore,
