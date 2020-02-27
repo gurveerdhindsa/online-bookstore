@@ -1,12 +1,11 @@
-import BookStore.Book;
+package Bookstore;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
-/**
- * BookTest class
- */
 public class BookTest {
     Book book;
 
@@ -115,4 +114,3 @@ public class BookTest {
     }
 
 }
-

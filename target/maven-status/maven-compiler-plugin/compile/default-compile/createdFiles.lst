@@ -1,6 +1,6 @@
+Bookstore\User.class
 Repository\BookRepository.class
-BookStore\User.class
-BookStore\Owner.class
+Bookstore\Book.class
+Bookstore\Owner.class
+Repository\Launcher.class
 Launch\Launcher.class
-Repository\UserRepository.class
-BookStore\Book.class
