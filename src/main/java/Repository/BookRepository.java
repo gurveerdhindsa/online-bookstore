@@ -16,18 +16,12 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends MongoRepository<Book, Long> {
 
+    @Override
     Optional<Book> findById(Long id);
     List<Book> findByTitleContaining (String title);
     List<Book> findByPublisher (String publisher);
     List<Book> findByAuthor(String author);
-
-
-    Optional<Book> findByIsbn(String isbn);
-
-    @Query("SELECT b FROM Book b WHERE b.title=:title and b.publisher=:publisher and b.author=:author and b.isbn=:isbn")
-    List<Book> fetchBooks (@Param("title") String title, @Param("publisher") String publisher, @Param("author") String author, @Param("isbn") String isbn);
-
-
+    Book findByIsbn(String isbn);
     List<Book> findByOrderByCostAsc();
     List<Book> findByOrderByCostDesc();
 
