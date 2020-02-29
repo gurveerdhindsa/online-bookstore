@@ -10,7 +10,6 @@ import Repository.BookRepository;
  */
 public class Owner {
 
-
     @Autowired
     private BookRepository bookRepo;
     private Book book;
@@ -42,8 +41,4 @@ public class Owner {
         // edit book attributes
         bookRepo.save(book);
     }
-
-
-
-
 }

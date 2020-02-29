@@ -24,8 +24,4 @@ public interface BookRepository extends MongoRepository<Book, Long> {
     Book findByIsbn(String isbn);
     List<Book> findByOrderByCostAsc();
     List<Book> findByOrderByCostDesc();
-
-
-
-
 }

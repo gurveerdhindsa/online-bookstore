@@ -140,6 +140,4 @@ public class Book {
         Book book = (Book)obj;
         return this.isbn.equals(book.isbn) && this.publisher.equals(book.publisher) && this.author.equals(book.author) && this.cost == book.cost && this.title.equals(book.title);
     }
-
-
 }
