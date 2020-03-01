@@ -1,0 +1,8 @@
+.hidden{display:none;}
+.card {display:inline-block;}
+.card-body{padding:0.25rem;}
+.add-to-cart-btn{float:right}
+.bookstore-header{padding-bottom:20px;}
+.bookstore-filter{padding-bottom:30px; width: 20rem;}
+.bookstore-content{padding:10px;}
+.bookstore-cart{float:right;font-size: 30px;}
