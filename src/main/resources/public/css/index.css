@@ -1,8 +1,108 @@
-.hidden{display:none;}
-.card {display:inline-block;}
-.card-body{padding:0.25rem;}
-.add-to-cart-btn{float:right}
-.bookstore-header{padding-bottom:20px;}
-.bookstore-filter{padding-bottom:30px; width: 20rem;}
-.bookstore-content{padding:10px;}
-.bookstore-cart{float:right;font-size: 30px;}
+/*.hidden{display:none;}*/
+.card {
+    display:inline-block;
+}
+.card-body{
+    padding:0.25rem;
+}
+.add-to-cart-btn{
+    float:right
+}
+.bookstore-header{
+    padding-bottom:20px;
+}
+.bookstore-filter{
+    padding-bottom:30px; width: 20rem;
+}
+.bookstore-content{
+    padding:10px;
+}
+.bookstore-cart-icon{
+    color:white; font-size: 30px;
+}
+.bookstore-cart-dropdown{
+    visibility: hidden;float:right;
+}
+
+ul.dropdown-cart{
+    min-width:350px;
+    z-index: 10;
+    position: relative;
+}
+
+ul.dropdown-cart li .item{
+    display:block;
+    padding:3px 10px;
+    margin: 3px 0;
+    z-index: 10;
+    position: relative;
+}
+
+ul.dropdown-cart li .item:after{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+ul.dropdown-cart li .item-left{
+    float:left;
+}
+
+ul.dropdown-cart li .item-left img,
+ul.dropdown-cart li .item-left span.item-info{
+    float:left;
+}
+
+ul.dropdown-cart li .item-left span.item-info{
+    margin-left:10px;
+}
+
+ul.dropdown-cart li .item-left span.item-info span{
+    display:block;
+}
+
+ul.dropdown-cart li .item-right{
+    float:right;
+}
+
+ul.dropdown-cart li .item-right button{
+    margin-top:14px;
+}
+
+.dropdown-toggle:after {
+    content: none
+}
+
+.navbar .dropdown-menu {
+    background-color: #F0F0F0;
+    position: absolute;
+    right: 0;
+    left: auto;
+    z-index: 10;
+    padding-bottom: 50%;
+}
+
+.checkout-btn {
+    height: 40px;
+    width: 100px;
+    margin: -20px -50px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+}
+
+.empty-cart {
+    text-align: center;
+    padding-top: 5%;
+}
+
+.item-info-author {
+    font-size: 12px;
+}
+
+.item-info-cost {
+    color: red;
+}
