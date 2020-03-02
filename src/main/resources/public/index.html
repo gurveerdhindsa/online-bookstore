@@ -8,24 +8,38 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-    <div class="bookstore-header">
-        <nav class="navbar navbar-dark bg-dark text-light">
-            <h1>Bookstore</h1>
-            <i class="fas fa-shopping-cart bookstore-cart"></i>
-        </nav>
-    </div>
 
-    <div class="bookstore-content">
-        <div class="bookstore-filter">
-            <input class="form-control" type="text" placeholder="Search for a book title" aria-label="Search">
+<nav class="navbar navbar-dark bg-dark text-light navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Bookstore</a>
         </div>
 
-        <div class="card-deck" id="allBooks" />
+        <ul class="nav navbar-nav navbar-right navbar-fixed-top">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"> <span class="fas fa-shopping-cart bookstore-cart-icon" /></a>
+                <ul class="dropdown-menu dropdown-cart" role="menu">
+                    <li class="dropdown-menu-list">
+                        <p class="empty-cart"> There is nothing in the cart </p>
+                    </li>
+                    <li><a class="btn btn-info checkout-btn">Checkout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="bookstore-content">
+    <div class="bookstore-filter">
+        <input class="form-control" type="text" placeholder="Search for a book title" aria-label="Search">
     </div>
 
-    <script src="/js/books.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <div class="card-deck bookstore-books" />
+</div>
+
+<script src="/js/books.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
