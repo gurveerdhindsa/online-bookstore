@@ -9,8 +9,8 @@ window.onload=getUser();
 
 $(document).ready(function() {
     $.ajax({
-        url: "http://localhost:8080/books"
-        // url: "https://amazin-online-bookstore.herokuapp.com/books"
+        // url: "http://localhost:8080/books"
+        url: "https://amazin-online-bookstore.herokuapp.com/books"
     }).then(function(data) {
         if(data) {
             books = data.content
