@@ -1,5 +1,10 @@
 package Bookstore;
 
+import Repository.BookRepository;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * Book class
  */
@@ -10,6 +15,8 @@ public class Book {
     private String publisher;
     private double cost;
     private long id;
+    private Genre genre;
+    private int quantity;
     /**
      * Instantiates a new Book.
      *
@@ -19,20 +26,25 @@ public class Book {
      * @param publisher the publisher
      * @param cost      the cost
      */
+    @Autowired
+    BookRepository bookRepo;
 
-    public Book(long id, String isbn, String title, String author, String publisher, double cost) {
+    public Book(long id, String isbn, String title, String author, String publisher, double cost, int quantity, Genre genre) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.cost = cost;
-
+        this.quantity = quantity;
+        this.genre = genre;
     }
+
+
 
     /**
      * Gets the Id
-     * @return the Id
+     * @return  Id
      */
     public Long getId() {
         return  this.id;
@@ -41,7 +53,7 @@ public class Book {
     /**
      * Gets isbn.
      *
-     * @return the isbn
+     * @return  isbn
      */
     public String getIsbn() {
         return isbn;
@@ -50,7 +62,7 @@ public class Book {
     /**
      * Sets isbn.
      *
-     * @param isbn the isbn
+     * @param isbn  isbn
      */
     public void setIsbn(String isbn) {
         this.isbn = isbn;
@@ -59,7 +71,7 @@ public class Book {
     /**
      * Gets title.
      *
-     * @return the title
+     * @return  title
      */
     public String getTitle() {
         return title;
@@ -68,7 +80,7 @@ public class Book {
     /**
      * Sets title.
      *
-     * @param title the title
+     * @param title
      */
     public void setTitle(String title) {
         this.title = title;
@@ -77,7 +89,7 @@ public class Book {
     /**
      * Gets author.
      *
-     * @return the author
+     * @return  author
      */
     public String getAuthor() {
         return author;
@@ -86,7 +98,7 @@ public class Book {
     /**
      * Sets author.
      *
-     * @param author the author
+     * @param author  author
      */
     public void setAuthor(String author) {
         this.author = author;
@@ -95,7 +107,7 @@ public class Book {
     /**
      * Gets publisher.
      *
-     * @return the publisher
+     * @return  publisher
      */
     public String getPublisher() {
         return publisher;
@@ -104,7 +116,7 @@ public class Book {
     /**
      * Sets publisher.
      *
-     * @param publisher the publisher
+     * @param publisher
      */
     public void setPublisher(String publisher) {
         this.publisher = publisher;
@@ -113,16 +125,41 @@ public class Book {
     /**
      * Gets cost.
      *
-     * @return the cost
+     * @return cost
      */
     public double getCost() {
         return cost;
     }
 
     /**
+     * Gets quantity.
+     *
+     * @return quantity
+     */
+    public int getQuantity() { return quantity; }
+    /**
+     * Sets quantity.
+     *
+     * @param quantity
+     */
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    /**
+     * Gets genre.
+     *
+     * @return genre
+     */
+    public Genre getGenre() { return genre; }
+    /**
+     * Sets genre.
+     *
+     * @param genre
+     */
+    public void setGenre(Genre genre) { this.genre = genre; }
+    /**
      * Sets cost.
      *
-     * @param cost the cost
+     * @param cost
      */
     public void setCost(double cost) {
         this.cost = cost;
@@ -138,6 +175,21 @@ public class Book {
         if (this == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         Book book = (Book)obj;
-        return this.isbn.equals(book.isbn) && this.publisher.equals(book.publisher) && this.author.equals(book.author) && this.cost == book.cost && this.title.equals(book.title);
+        return this.isbn.equals(book.isbn) && this.publisher.equals(book.publisher) && this.author.equals(book.author) && this.cost == book.cost && this.title.equals(book.title) &&this.genre.equals(book.genre);
     }
+    /**
+     * Check quantity of book
+     * @return boolean
+     */
+    public boolean isInStock(){
+        if (this.quantity == 0){
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+
 }

@@ -11,7 +11,7 @@ public class BookTest {
 
     @Before
     public void setUp() {
-        book = new Book(1, "1501173219", "All the Light We Cannot See", "Anthony Doerr", "Scribner", 23.00);
+        book = new Book(1, "1501173219", "All the Light We Cannot See", "Anthony Doerr", "Scribner", 23.00, 1, Genre.Fiction);
     }
 
     @After
@@ -109,7 +109,7 @@ public class BookTest {
      */
     @Test
     public void testIsEqual() throws Exception {
-        Book book2 = new Book(1, "1501173219", "All the Light We Cannot See", "Anthony Doerr", "Scribner", 23.00);
+        Book book2 = new Book(1, "1501173219", "All the Light We Cannot See", "Anthony Doerr", "Scribner", 23.00, 1, Genre.Fiction);
         assertTrue(book.isEqual(book2));
     }
 
