@@ -19,9 +19,12 @@ public interface BookRepository extends MongoRepository<Book, Long> {
     @Override
     Optional<Book> findById(Long id);
     List<Book> findByTitleContaining (String title);
+    Book findByTitle(String title);
     List<Book> findByPublisher (String publisher);
     List<Book> findByAuthor(String author);
     Book findByIsbn(String isbn);
     List<Book> findByOrderByCostAsc();
     List<Book> findByOrderByCostDesc();
+
 }
+
