@@ -1,4 +1,8 @@
 /*.hidden{display:none;}*/
+.navbar-brand {
+    font-size: 30px;
+}
+
 .card {
     display:inline-block;
 }
@@ -12,8 +16,21 @@
     padding-bottom:20px;
 }
 .bookstore-filter{
-    padding-bottom:30px; width: 20rem;
+    padding-top:30px;
+    padding-bottom:25px;
+    width: 100%;
+    display:flex;
 }
+
+.bookstore-filter-search{
+    width:300px;
+    margin-right:20px
+}
+
+.bookstore-filter-dropdown{
+    padding-left:20px;
+}
+
 .bookstore-content{
     padding:10px;
 }
