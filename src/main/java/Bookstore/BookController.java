@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,16 @@ public class BookController {
         books = bookrepo.findAll();
         return books;
     }
+
+//    @RequestMapping("search/{title}")
+//    @ResponseBody
+//    public  Book getTitle (@PathVariable("title") String title){
+//        Book book = bookrepo.findByTitle(title);
+//        if (book == null){
+//            return null;
+//        }
+//        return book;
+//    }
 
     @RequestMapping("/books/{id}")
     public ResponseEntity<Optional<Book>> getBook(@PathVariable("id") Long id)

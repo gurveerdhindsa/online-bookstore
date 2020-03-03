@@ -3,6 +3,8 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User can search for, and browse through, the books in the bookstore,
@@ -12,14 +14,13 @@ import javax.persistence.GenerationType;
  *
  */
 
-@Entity
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private long userId;
 
     private String firstName;
     private String lastName;
+    private List<Book> orderedBooks;
 
     /**
      * Instantiates a new User
@@ -31,11 +32,14 @@ public class User {
         this.setUserId(userId);
         this.setFirstName(firstName);
         this.setLastName(lastName);
+        orderedBooks = new ArrayList<Book>();
     }
 
     public User(){
 
     }
+
+
 
     /**
      * toString() for User attributes
