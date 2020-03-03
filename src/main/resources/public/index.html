@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bookstore</title>
+    <title>Amazin Online Bookstore</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -31,13 +31,30 @@
 
 <div class="bookstore-content">
     <div class="bookstore-filter">
-        <input class="form-control" type="text" placeholder="Search for a book title" aria-label="Search">
+        <input class="bookstore-filter-search form-control" type="text" placeholder="Search for a book title" aria-label="Search">
+
+        <div class="dropdown bookstore-filter-dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Genre
+            </button>
+            <div class="dropdown-menu dropdown-menu-genre" aria-labelledby="dropdownMenuButtonGenre">
+            </div>
+        </div>
+
+        <div class="dropdown bookstore-filter-dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonAuthor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Author
+            </button>
+            <div class="dropdown-menu dropdown-menu-author" aria-labelledby="dropdownMenuButtonAuthor">
+            </div>
+        </div>
     </div>
 
     <div class="card-deck bookstore-books" />
 </div>
 
 <script src="/js/books.js"></script>
+<script src="/js/checkout.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
