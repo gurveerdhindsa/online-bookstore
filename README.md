@@ -28,7 +28,7 @@ mvn spring-boot:run
 ```
 
 ## Running the tests
-```shell script
+```
 mvn test
 ```
 
