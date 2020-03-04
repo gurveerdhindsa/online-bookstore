@@ -17,7 +17,7 @@
 
         <ul class="nav navbar-nav navbar-right navbar-fixed-top">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"> <span class="fas fa-shopping-cart bookstore-cart-icon" /></a>
+                <a href="#" class="dropdown-toggle checkout-dropdown-toggle" data-toggle="dropdown" role="button"> <span class="fas fa-shopping-cart bookstore-cart-icon" /></a>
                 <ul class="dropdown-menu dropdown-cart" role="menu">
                     <li class="dropdown-menu-list">
                         <p class="empty-cart"> There is nothing in the cart </p>
@@ -31,7 +31,14 @@
 
 <div class="bookstore-content">
     <div class="bookstore-filter">
-        <input class="bookstore-filter-search form-control" type="text" placeholder="Search for a book title" aria-label="Search">
+        <input class="bookstore-filter-search form-control" type="text" placeholder="Search for a book title" aria-label="Search" onkeyup="searchBook(this.value)">
+        <div class="dropdown bookstore-filter-dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonAuthor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Author
+            </button>
+            <div class="dropdown-menu dropdown-menu-author" aria-labelledby="dropdownMenuButtonAuthor">
+            </div>
+        </div>
 
         <div class="dropdown bookstore-filter-dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,16 +48,18 @@
             </div>
         </div>
 
-        <div class="dropdown bookstore-filter-dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonAuthor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Author
+        <div class="dropdown bookstore-filter-dropdown filter-dropdown-sort">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by
             </button>
-            <div class="dropdown-menu dropdown-menu-author" aria-labelledby="dropdownMenuButtonAuthor">
+            <div class="dropdown-menu dropdown-menu-sort dropdown-menu-right" aria-labelledby="dropdownMenuButtonSort">
+                <a class=\"dropdown-item\" id="sort-low-to-high">Price: Low to High</a>
+                <a class=\"dropdown-item\" id="sort-high-to-low">Price: High to Low</a>
             </div>
         </div>
     </div>
 
-    <div class="card-deck bookstore-books" />
+    <div class="row col-100 bookstore-books" />
 </div>
 
 <script src="/js/books.js"></script>

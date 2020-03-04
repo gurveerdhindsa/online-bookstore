@@ -3,18 +3,39 @@
     font-size: 30px;
 }
 
-.card {
-    display:inline-block;
+.bookstore-books {
+    display: flex;
+    justify-content: space-around;
 }
+
+.card {
+    height:200px;
+    width:250px;
+    margin-bottom:10px;
+}
+
 .card-body{
     padding:0.25rem;
 }
-.add-to-cart-btn{
-    float:right
+
+.isbn {
+    color: lightgray;
+    font-size: 10px;
 }
+
+.add-to-cart-btn{
+    float:right;
+    background-color:#f2c95c;
+    border-color:#a88734;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+
 .bookstore-header{
     padding-bottom:20px;
 }
+
 .bookstore-filter{
     padding-top:30px;
     padding-bottom:25px;
@@ -35,7 +56,8 @@
     padding:10px;
 }
 .bookstore-cart-icon{
-    color:white; font-size: 30px;
+    color:white;
+    font-size: 30px;
 }
 .bookstore-cart-dropdown{
     visibility: hidden;float:right;
@@ -89,7 +111,7 @@ ul.dropdown-cart li .item-right button{
     margin-top:14px;
 }
 
-.dropdown-toggle:after {
+.checkout-dropdown-toggle:after {
     content: none
 }
 
@@ -121,5 +143,31 @@ ul.dropdown-cart li .item-right button{
 }
 
 .item-info-cost {
-    color: red;
+    color: #b7312d;
+}
+
+a {
+    color: #0060B6;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#00A0C6;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.filter-dropdown-sort {
+    margin-left: auto;
+}
+
+.dropdown-menu-sort {
+    text-align: center;
+    line-height: 28px;
+}
+
+.row > div[class*='col-'] {
+    display: flex;
+    flex:1 0 auto;
+    padding:15px;
 }
