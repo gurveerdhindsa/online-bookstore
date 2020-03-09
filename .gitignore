@@ -42,3 +42,4 @@ Thumbs.db
 /out
 *.iml
 target/
+.properties
