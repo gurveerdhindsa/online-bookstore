@@ -13,7 +13,7 @@ import java.util.Optional;
  *
  */
 
-@Repository
+@org.springframework.stereotype.Repository
 public interface BookRepository extends MongoRepository<Book, Long> {
 
     @Override
@@ -25,6 +25,7 @@ public interface BookRepository extends MongoRepository<Book, Long> {
     Book findByIsbn(String isbn);
     List<Book> findByOrderByCostAsc();
     List<Book> findByOrderByCostDesc();
+
 
 }
 

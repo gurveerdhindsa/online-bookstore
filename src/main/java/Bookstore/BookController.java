@@ -3,8 +3,8 @@ package Bookstore;
 import Repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
@@ -26,19 +26,23 @@ public class BookController {
         return books;
     }
 
-//    @RequestMapping("search/{title}")
-//    @ResponseBody
-//    public  Book getTitle (@PathVariable("title") String title){
-//        Book book = bookrepo.findByTitle(title);
-//        if (book == null){
-//            return null;
-//        }
-//        return book;
-//    }
+    @RequestMapping("/title")
+    @PostMapping(path = "/title", consumes = "application/json")
+    public ResponseEntity<List<Book>> getTitle (@RequestBody Book book){
 
-    @RequestMapping("/books/{id}")
+        List<Book> bookList = bookrepo.findByTitleContaining(book.getTitle());
+        if (bookList == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<Book>>(bookList, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/books/{id}")
+    @ResponseBody
     public ResponseEntity<Optional<Book>> getBook(@PathVariable("id") Long id)
     {
+
         Optional <Book> book = bookrepo.findById(id);
         if (book == null)
         {
