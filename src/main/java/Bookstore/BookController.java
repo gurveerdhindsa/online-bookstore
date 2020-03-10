@@ -1,14 +1,11 @@
 package Bookstore;
 
-import Bookstore.Book;
 import Repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
@@ -17,8 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-
-
+@Component
 public class BookController {
 
     @Autowired
