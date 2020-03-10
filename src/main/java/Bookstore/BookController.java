@@ -1,4 +1,4 @@
-package Repository;
+package Bookstore;
 
 import Bookstore.Book;
 import Repository.BookRepository;
