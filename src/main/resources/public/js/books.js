@@ -35,6 +35,7 @@ $(document).ready(function() {
                             "           <h8 class=\"card-text\ author\">"+"by "+books[i].author+"</h8>" +
                             "           <p class=\"card-text\ cost\ item-info-cost\">"+"$"+books[i].cost+"</p>" +
                             "           <p class=\"card-text\ isbn\">"+"ISBN: "+books[i].isbn+"</p>" +
+                            "           <h6 class = \"card-text\genre\ " + books[i].genre+"</h6>" +
                             "           <a class=\"btn add-to-cart-btn\">Add to cart</a>" +
                             "       </div>" +
                             "     </div>";
