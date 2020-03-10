@@ -26,5 +26,6 @@ public interface BookRepository extends MongoRepository<Book, Long> {
     List<Book> findByOrderByCostAsc();
     List<Book> findByOrderByCostDesc();
 
+
 }
 

@@ -40,6 +40,10 @@ public class Book {
         this.genre = genre;
     }
 
+    public Book(){
+        
+    }
+
 
 
     /**
