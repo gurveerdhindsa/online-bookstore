@@ -171,3 +171,18 @@ a:hover {
     flex:1 0 auto;
     padding:15px;
 }
+
+.genre {
+    font-style: italic;
+    font-size: 13px;
+}
+
+.books-message {
+    width: 100%;
+}
+
+.no-books-found-message {
+    padding-top: 10%;
+    text-align: center;
+    color: lightgray;
+}
