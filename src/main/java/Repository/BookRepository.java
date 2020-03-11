@@ -13,7 +13,7 @@ import java.util.Optional;
  *
  */
 
-@Repository
+@org.springframework.stereotype.Repository
 public interface BookRepository extends MongoRepository<Book, Long> {
 
     @Override

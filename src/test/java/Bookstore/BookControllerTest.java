@@ -10,7 +10,10 @@ import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -31,8 +34,8 @@ public class BookControllerTest {
     @Autowired
     private ObjectMapper mapper;
     @Autowired
-    BookRepository bookRepo;
-    @InjectMocks
+    BookRepository bookRepository;
+    @Autowired
     BookController bookController;
 
     @Test
@@ -62,7 +65,7 @@ public class BookControllerTest {
 
     @Test
     public void getTitleList() throws Exception{
-        List<Book> bookList = bookRepo.findByTitleContaining("Mamba");
+        List<Book> bookList = bookRepository.findByTitleContaining("Mamba");
         Assert.assertEquals(bookList.size() , 2);
 
     }
@@ -75,6 +78,15 @@ public class BookControllerTest {
                 .content(json)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void bookTitleContents() throws Exception {
+        Book testBook = new Book();
+        testBook.setTitle("milk");
+        ResponseEntity<List<Book>> contents = bookController.getTitle(testBook);
+        String bookTitle = contents.getBody().get(0).getTitle();
+        Assert.assertEquals(bookTitle, "milk and honey");
     }
 
 }
