@@ -1,6 +1,7 @@
 var user;
 var books;
-var AllBooksHTML;
+var allBooksHTML;
+var searchedBooksHTML;
 var timeout = null;
 
 function getUser(){
@@ -17,9 +18,9 @@ $(document).ready(function() {
         url: "https://amazin-online-bookstore.herokuapp.com/books"
     }).then(function(data) {
         if(data) {
-            books = data.content
+            books = data;
             var len = books.length;
-            AllBooksHTML = "";
+            allBooksHTML = "";
             var genreFilter = "";
             var authorFilter = "";
 
@@ -29,20 +30,21 @@ $(document).ready(function() {
                         genreFilter += "<a class=\"dropdown-item\" href=\"#\">"+books[i].genre+"</a>"
                         authorFilter += "<a class=\"dropdown-item\" href=\"#\">"+books[i].author+"</a>"
 
-                        AllBooksHTML += "<div class=\"card\">" +
+                        allBooksHTML += "<div class=\"card\">" +
                             "       <div class=\"card-body\">" +
                             "           <h5 class=\"card-title\ title\">"+books[i].title+"</h5>" +
+                            "           <p class=\"card-title\ genre\">"+books[i].genre+"</p>" +
                             "           <h8 class=\"card-text\ author\">"+"by "+books[i].author+"</h8>" +
                             "           <p class=\"card-text\ cost\ item-info-cost\">"+"$"+books[i].cost+"</p>" +
                             "           <p class=\"card-text\ isbn\">"+"ISBN: "+books[i].isbn+"</p>" +
-                            "           <h6 class = \"card-text\genre\ " + books[i].genre+"</h6>" +
                             "           <a class=\"btn add-to-cart-btn\">Add to cart</a>" +
                             "       </div>" +
                             "     </div>";
                     }
                 }
-                if(AllBooksHTML != ""){
-                    $(".bookstore-books").append(AllBooksHTML);
+
+                if(allBooksHTML != ""){
+                    $(".bookstore-books").append(allBooksHTML);
                 }
 
                 if(genreFilter != ""){
@@ -58,39 +60,66 @@ $(document).ready(function() {
 });
 
 function searchBook(searchInput) {
-    if (searchInput.length > 0) {
-        if (timeout) {
-            clearTimeout(timeout);
-        }
-        timeout = setTimeout(function() {
-            console.log("MAKE A POST REQUEST WITH SEARCH TEXT:", searchInput)
+    if (timeout) {
+        clearTimeout(timeout);
+    }
 
+    if (searchInput.length > 0) {
+        timeout = setTimeout(function() {
             var data = {}
             data["title"] = searchInput
 
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "http://localhost:8080/books",
+                // url: "http://localhost:8080/title",
+                url: "https://amazin-online-bookstore.herokuapp.com/title",
                 data: JSON.stringify(data),
                 dataType: 'json',
                 timeout: 600000
             }).then(function(data) {
-                if(data) {
-                    // Remove all books from view
-                    $(".bookstore-books").empty()
+                // Remove all books from view
+                $(".bookstore-books").empty()
+
+                if(data && data.length > 0) {
+                    // Remove no books found message
+                    $(".books-message").empty()
 
                     // Then display the books that match search
+                    searchedBook = data;
+                    searchedBooksHTML = "";
+
+                    for (var i = 0; i < searchedBook.length; i++) {
+                        if (searchedBook[i].title && searchedBook[i].author && searchedBook[i].cost) {
+                            searchedBooksHTML += "<div class=\"card\">" +
+                                "       <div class=\"card-body\">" +
+                                "           <h5 class=\"card-title\ title\">" + searchedBook[i].title + "</h5>" +
+                                "           <p class=\"card-title\ genre\">" + searchedBook[i].genre + "</p>" +
+                                "           <h8 class=\"card-text\ author\">" + "by " + searchedBook[i].author + "</h8>" +
+                                "           <p class=\"card-text\ cost\ item-info-cost\">" + "$" + searchedBook[i].cost + "</p>" +
+                                "           <p class=\"card-text\ isbn\">" + "ISBN: " + searchedBook[i].isbn + "</p>" +
+                                "           <a class=\"btn add-to-cart-btn\">Add to cart</a>" +
+                                "       </div>" +
+                                "     </div>";
+                        }
+                    }
+
+                    $(".bookstore-books").append(searchedBooksHTML);
+
                 } else {
-                    // Display 'No books found' message
+                    $(".books-message").append("<h4 class=\"no-books-found-message\">No books found :(</h4>")
                 }
             });
-        }, 2000);
+        }, 1000);
     } else {
+        // Remove no books found message
+        $(".books-message").empty()
+
         // Remove all books from search results
-        // $(".bookstore-books").empty()
+        searchedBooksHTML = ""
+        $(".bookstore-books").empty()
 
         // Then display all books
-        $(".bookstore-books").append(AllBooksHTML);
+        $(".bookstore-books").append(allBooksHTML);
     }
 }

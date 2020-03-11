@@ -62,6 +62,19 @@ $(document).on("click", ".remove-from-cart-btn", function(){
         $(".empty-cart").show()
         $(".checkout-btn").hide()
     }
+});
 
-    console.log(cart)
+// Open checkout dropdown when clicked on the shopping cart
+$('.checkout-dropdown-toggle').on('click', function(event) {
+    $('.dropdown-cart').slideToggle();
+    event.stopPropagation();
+});
+
+// Close the dropdown when clicked outside of its div
+$(document).mouseup(function (e){
+    var dropdown = $(".dropdown-cart");
+
+    if (!dropdown.is(e.target) && dropdown.has(e.target).length === 0){
+        dropdown.slideUp();
+    }
 });
