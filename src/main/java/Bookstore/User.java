@@ -4,7 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * User can search for, and browse through, the books in the bookstore,
@@ -21,6 +25,7 @@ public class User {
     private String firstName;
     private String lastName;
     private List<Book> orderedBooks;
+    private List<Book> recommendedBooks;
 
     /**
      * Instantiates a new User
@@ -33,6 +38,7 @@ public class User {
         this.setFirstName(firstName);
         this.setLastName(lastName);
         orderedBooks = new ArrayList<Book>();
+        this.recommendedBooks = new ArrayList<Book>();
     }
 
     public User(){
@@ -40,6 +46,28 @@ public class User {
     }
 
 
+    /**
+     *
+     * @return
+     */
+    public List<Book> getOrderedBooks()
+    {
+        return  this.orderedBooks;
+    }
+
+    /**
+     *
+     * @param book
+     */
+    public void addToOrderedBooks(Book book)
+    {
+        this.orderedBooks.add(book);
+    }
+
+    public void setOrderedBooks(List<Book> books)
+    {
+        this.orderedBooks = books;
+    }
 
     /**
      * toString() for User attributes
@@ -116,5 +144,53 @@ public class User {
         if (this.getClass() != obj.getClass()) return false;
         User user = (User)obj;
         return this.userId == user.userId && this.firstName.equals(user.firstName) && this.lastName.equals(user.lastName);
+    }
+
+    /**
+     * Compares a user's Purchase history to another user
+     * and then recommend the other user's books that
+     * this user has not purchased if they have similar
+     * history
+     * @param otheruser otheruser to compare history with
+     * @return null or list of book recommendation based
+     * on other user's pruchase history
+     */
+    public List<Book> comparePurchaseHistory(User otheruser)
+    {
+        if (this.orderedBooks == null || otheruser.getOrderedBooks() == null)
+        {
+            return null;
+        }
+
+        List<Book> userBooks = this.orderedBooks;
+        List<Book> otherUserBooks = otheruser.getOrderedBooks();
+
+
+        List<Book> intersection = this.orderedBooks.stream().distinct().filter(otheruser.getOrderedBooks()::contains)
+                .collect(Collectors.toList());
+        double lengthOfIntersection = intersection.size();
+
+        List<Book> union = new ArrayList<>();
+        union.addAll(userBooks);
+
+        for(Book books : otherUserBooks)
+        {
+            if (!union.contains(books))
+            {
+                union.add(books);
+            }
+        }
+
+        double lengthOfUnion = union.size();
+        double similarity = lengthOfIntersection / lengthOfUnion;
+
+
+        if (similarity < 0.5)
+        {
+            return null;
+        }
+        List<Book> recommendedBooks = recommendedBooks =  otherUserBooks.stream().filter(book -> (!userBooks.contains(book))).collect(Collectors.toList());
+        return recommendedBooks;
+
     }
 }
