@@ -1,17 +1,24 @@
-/*.hidden{display:none;}*/
+html, body {
+    background-color: #272b30;
+}
+
 .navbar-brand {
     font-size: 30px;
 }
 
 .bookstore-books {
     display: flex;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
+    align-items: center;
+    justify-content: left;
 }
 
 .card {
+    background-color: #e9ecef;
     height:200px;
     width:250px;
-    margin-bottom:10px;
+    /*margin-bottom:10px;*/
+    margin: 20px;
 }
 
 .card-body{
@@ -19,7 +26,7 @@
 }
 
 .isbn {
-    color: lightgray;
+    color: darkgray;
     font-size: 10px;
 }
 
@@ -30,6 +37,17 @@
     position: absolute;
     right: 5px;
     bottom: 5px;
+}
+
+.valid-button {
+    background-color:#f2c95c;
+    border-color:#a88734;
+}
+
+.disabled-button {
+    background-color: #c4c4c4;
+    border-color : #C3C3C3;
+    pointer-events: none;
 }
 
 .bookstore-header{
@@ -131,11 +149,21 @@ ul.dropdown-cart li .item-right button{
     position: relative;
     top: 50%;
     left: 50%;
+    color: white;
+    background-color: #157af6;
+}
+
+.btn {
+    color: white;
 }
 
 .empty-cart {
     text-align: center;
     padding-top: 5%;
+}
+
+.item-info-title {
+    font-size: 14px;
 }
 
 .item-info-author {
@@ -144,6 +172,11 @@ ul.dropdown-cart li .item-right button{
 
 .item-info-cost {
     color: #b7312d;
+}
+
+.item-info-isbn {
+    color: darkgray;
+    font-size: 9px;
 }
 
 a {
@@ -186,3 +219,8 @@ a:hover {
     text-align: center;
     color: lightgray;
 }
+
+.bookstore-logo-icon {
+    font-size: 25px;
+}
+
