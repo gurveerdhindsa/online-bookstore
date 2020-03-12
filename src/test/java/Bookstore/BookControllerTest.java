@@ -65,7 +65,7 @@ public class BookControllerTest {
 
     @Test
     public void getTitleList() throws Exception{
-        List<Book> bookList = bookRepository.findByTitleContaining("Mamba");
+        List<Book> bookList = bookRepository.findByTitleContainingIgnoreCase("Mamba");
         Assert.assertEquals(bookList.size() , 2);
 
     }

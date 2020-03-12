@@ -30,7 +30,7 @@ public class BookController {
     @PostMapping(path = "/title", consumes = "application/json")
     public ResponseEntity<List<Book>> getTitle (@RequestBody Book book){
 
-        List<Book> bookList = bookrepo.findByTitleContaining(book.getTitle());
+        List<Book> bookList = bookrepo.findByTitleContainingIgnoreCase(book.getTitle());
         if (bookList == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
