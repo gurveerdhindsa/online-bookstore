@@ -36,7 +36,7 @@ $(document).ready(function() {
                             "           <p class=\"card-title\ genre\">"+books[i].genre+"</p>" +
                             "           <h8 class=\"card-text\ author\">"+"by "+books[i].author+"</h8>" +
                             "           <p class=\"card-text\ cost\ item-info-cost\">"+"$"+books[i].cost+"</p>" +
-                            "           <p class=\"card-text\ isbn\">"+"ISBN: "+books[i].isbn+"</p>" +
+                            "           <p class=\"card-text\ isbn\">"+books[i].isbn+"</p>" +
                             "           <a class=\"btn add-to-cart-btn\">Add to cart</a>" +
                             "       </div>" +
                             "     </div>";
@@ -97,8 +97,8 @@ function searchBook(searchInput) {
                                 "           <p class=\"card-title\ genre\">" + searchedBook[i].genre + "</p>" +
                                 "           <h8 class=\"card-text\ author\">" + "by " + searchedBook[i].author + "</h8>" +
                                 "           <p class=\"card-text\ cost\ item-info-cost\">" + "$" + searchedBook[i].cost + "</p>" +
-                                "           <p class=\"card-text\ isbn\">" + "ISBN: " + searchedBook[i].isbn + "</p>" +
-                                "           <a class=\"btn add-to-cart-btn\">Add to cart</a>" +
+                                "           <p class=\"card-text\ isbn\">"+ searchedBook[i].isbn + "</p>" +
+                                "           <a class=\"btn add-to-cart-btn\ valid-button\">Add to cart</a>" +
                                 "       </div>" +
                                 "     </div>";
                         }
@@ -123,3 +123,31 @@ function searchBook(searchInput) {
         $(".bookstore-books").append(allBooksHTML);
     }
 }
+
+function inventoryCheckFromBookAdd(buttonClicked, selectedBook) {
+    var quantity
+    for(var i=0;i<books.length;i++){
+        if (books[i].isbn == selectedBook.isbn) {
+            quantity = books[i].quantity
+            break;
+        }
+    }
+
+    if (quantity - getQuantityFromCart(selectedBook) == 0) {
+        buttonClicked.text = "Out of stock"
+        $(buttonClicked).removeClass('valid-button')
+        $(buttonClicked).addClass('disabled-button')
+    } else {
+
+    }
+}
+
+function inventoryCheckFromBookRemove(removedBook) {
+    button = $("p:contains('" + removedBook.isbn + "')").siblings('.add-to-cart-btn')
+    if ($(button).text('Out of stock')) {
+        $(button).text("Add to cart")
+        $(button).removeClass('disabled-button')
+        $(button).addClass('valid-button')
+   }
+}
+

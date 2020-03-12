@@ -11,6 +11,7 @@ $(document).on("click", ".add-to-cart-btn", function(){
     // Grab the title, author and cost of selected book
     var selectedBook = new Object()
     selectedBook.title = $(this).siblings('.title').text()
+    selectedBook.isbn = $(this).siblings('.isbn').text()
     selectedBook.author = $(this).siblings('.author').text()
     selectedBook.cost = $(this).siblings('.cost').text()
 
@@ -25,6 +26,7 @@ $(document).on("click", ".add-to-cart-btn", function(){
         "       <span class=\"item-left\">\n" +
         "           <span class=\"item-info\">" +
         "               <span class=\"item-info-title\">" + cart[cart.length-1].title + "</span>" +
+        "               <span class=\"item-info-isbn\">" + cart[cart.length-1].isbn + "</span>" +
         "               <span class=\"item-info-author\">" + cart[cart.length-1].author + "</span>" +
         "               <span class=\"item-info-cost\">" + cart[cart.length-1].cost + "</span>" +
         "           </span>" +
@@ -33,23 +35,27 @@ $(document).on("click", ".add-to-cart-btn", function(){
         "       <button class=\"btn btn-xs btn-danger pull-right remove-from-cart-btn\">X</button>\n" +
         "   </span>"
     $(".dropdown-menu-list").append(html);
+
+    // Perform inventory check
+    inventoryCheckFromBookAdd(this, selectedBook);
 });
 
 // Remove a book
 $(document).on("click", ".remove-from-cart-btn", function(){
     // Grab the title, author and cost of selected book
-    var selectedBook = new Object()
-    selectedBook.title = $(this).closest(".item").find(".item-info-title").text()
-    selectedBook.author = $(this).closest(".item").find(".item-info-author").text()
-    selectedBook.cost = $(this).closest(".item").find(".item-info-cost").text()
+    var removedBook = new Object()
+    removedBook.title = $(this).closest(".item").find(".item-info-title").text()
+    removedBook.isbn = $(this).closest(".item").find(".item-info-isbn").text()
+    removedBook.author = $(this).closest(".item").find(".item-info-author").text()
+    removedBook.cost = $(this).closest(".item").find(".item-info-cost").text()
 
-    console.log('Removed: ', selectedBook);
+    console.log('Removed: ', removedBook);
 
     // Find the index at which book is being removed
     for (var i=0; i < cart.length; i++) {
-        if (cart[i].title == selectedBook.title &&
-            cart[i].author == selectedBook.author &&
-            cart[i].cost == selectedBook.cost) {
+        if (cart[i].title == removedBook.title &&
+            cart[i].author == removedBook.author &&
+            cart[i].cost == removedBook.cost) {
             cart.splice(i,1)
             break;
         }
@@ -62,6 +68,9 @@ $(document).on("click", ".remove-from-cart-btn", function(){
         $(".empty-cart").show()
         $(".checkout-btn").hide()
     }
+
+    // Check if the book's add to cart button was disabled
+    inventoryCheckFromBookRemove(removedBook);
 });
 
 // Open checkout dropdown when clicked on the shopping cart
@@ -78,3 +87,15 @@ $(document).mouseup(function (e){
         dropdown.slideUp();
     }
 });
+
+function getQuantityFromCart(selectedBook) {
+    var quantity = 0
+
+    for (var i=0; i < cart.length; i++) {
+        if (cart[i].isbn == selectedBook.isbn) {
+            quantity++;
+        }
+    }
+
+    return quantity
+}
