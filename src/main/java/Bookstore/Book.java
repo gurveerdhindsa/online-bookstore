@@ -174,7 +174,8 @@ public class Book {
      *
      * @param obj the object being compared
      */
-    public boolean isEqual(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
         if (this == obj) return true;
         if (this == null) return false;
         if (this.getClass() != obj.getClass()) return false;
@@ -190,6 +191,13 @@ public class Book {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString()
+    {
+        String book = this.isbn + " " + this.author + " " + this.publisher + " " + String.valueOf(this.id);
+        return  book;
     }
 
 
