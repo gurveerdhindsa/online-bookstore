@@ -21,7 +21,6 @@ import java.util.stream.Stream;
 public class User {
 
     private long userId;
-
     private String firstName;
     private String lastName;
     private List<Book> orderedBooks;
@@ -159,7 +158,7 @@ public class User {
     {
         if (this.orderedBooks == null || otheruser.getOrderedBooks() == null)
         {
-            return null;
+            return new ArrayList<Book>();
         }
 
         List<Book> userBooks = this.orderedBooks;
@@ -187,10 +186,9 @@ public class User {
 
         if (similarity < 0.5)
         {
-            return null;
+            return new ArrayList<Book>();
         }
-        List<Book> recommendedBooks = recommendedBooks =  otherUserBooks.stream().filter(book -> (!userBooks.contains(book))).collect(Collectors.toList());
+        List<Book> recommendedBooks  =  otherUserBooks.stream().filter(book -> (!userBooks.contains(book))).collect(Collectors.toList());
         return recommendedBooks;
-
     }
 }

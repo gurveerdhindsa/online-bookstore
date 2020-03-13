@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 
 @org.springframework.stereotype.Repository
-public interface BookRepository extends MongoRepository<Book, Long> {
+public interface BookRepository extends MongoRepository<Book, Long>{
 
     @Override
     Optional<Book> findById(Long id);

@@ -142,7 +142,7 @@ public class UserTest {
     {
         setUpNoRecommendedBooks();
         List<Book> recommendedBooks = user.comparePurchaseHistory(user2);
-        assertTrue(recommendedBooks == null);
+        assertEquals(recommendedBooks.size(), 0);
     }
 
     @Test

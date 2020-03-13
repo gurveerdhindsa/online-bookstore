@@ -3,15 +3,14 @@ package Bookstore;
 import Repository.BookRepository;
 import Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class BookController {
@@ -21,9 +20,16 @@ public class BookController {
 
 
     @RequestMapping("/books")
-    public List<Book> Home()
+    public List<Book> Home(@RequestBody Map<String,String> parameters)
     {
         List<Book> books = new ArrayList<Book>();
+        if(parameters.isEmpty())
+        {
+            return  bookrepo.findAll();
+        }
+
+
+
         books = bookrepo.findAll();
         return books;
     }
@@ -41,7 +47,6 @@ public class BookController {
 
 
     @GetMapping("/books/{id}")
-    @ResponseBody
     public ResponseEntity<Optional<Book>> getBook(@PathVariable("id") Long id)
     {
 
@@ -52,5 +57,4 @@ public class BookController {
         }
         return new ResponseEntity<Optional<Book>>(book, HttpStatus.OK);
     }
-
 }
