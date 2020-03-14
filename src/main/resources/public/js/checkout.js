@@ -13,7 +13,7 @@ $(document).on("click", ".add-to-cart-btn", function(){
     selectedBook.title = $(this).siblings('.title').text()
     selectedBook.isbn = $(this).siblings('.isbn').text()
     selectedBook.author = $(this).siblings('.author').text()
-    selectedBook.cost = $(this).siblings('.cost').text()
+    selectedBook.cost = Number($(this).siblings('.cost').text().replace('$',''))
 
     console.log('Added: ', selectedBook);
 
@@ -28,7 +28,7 @@ $(document).on("click", ".add-to-cart-btn", function(){
         "               <span class=\"item-info-title\">" + cart[cart.length-1].title + "</span>" +
         "               <span class=\"item-info-isbn\">" + cart[cart.length-1].isbn + "</span>" +
         "               <span class=\"item-info-author\">" + cart[cart.length-1].author + "</span>" +
-        "               <span class=\"item-info-cost\">" + cart[cart.length-1].cost + "</span>" +
+        "               <span class=\"item-info-cost\">" + "$" + cart[cart.length-1].cost + "</span>" +
         "           </span>" +
         "        </span>" +
         "   <span class=\"item-right\">\n" +
@@ -53,9 +53,7 @@ $(document).on("click", ".remove-from-cart-btn", function(){
 
     // Find the index at which book is being removed
     for (var i=0; i < cart.length; i++) {
-        if (cart[i].title == removedBook.title &&
-            cart[i].author == removedBook.author &&
-            cart[i].cost == removedBook.cost) {
+        if (cart[i].isbn == removedBook.isbn) {
             cart.splice(i,1)
             break;
         }
@@ -99,3 +97,24 @@ function getQuantityFromCart(selectedBook) {
 
     return quantity
 }
+
+// Checkout books
+$('.checkout-btn').on('click', function(event) {
+    console.log('User checking out books: ', user);
+    console.log('Cart contents:', cart)
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:8080/checkout/?id=" + Number(user),
+        // url: "https://amazin-online-bookstore.herokuapp.com/books"
+        data: JSON.stringify(cart),
+        dataType: 'json',
+        success: function () {
+            alert('success');
+        },
+        error: function () {
+            alert('failure');
+        }
+    });
+});

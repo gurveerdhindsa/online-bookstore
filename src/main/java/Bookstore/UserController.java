@@ -54,8 +54,8 @@ public class UserController {
         return  new ResponseEntity<List<Book>>(recommendedBooks, HttpStatus.OK);
     }
 
-    @PostMapping("user/{id}/checkout")
-    public ResponseEntity checkout(@RequestParam("id") Long id, @RequestBody List<Book> booksInCart) {
+    @PostMapping("/checkout")
+    public ResponseEntity checkout(@RequestParam(value = "id", required = true) Long id, @RequestBody List<Book> booksInCart) {
         Optional<User> userId = userRepo.findById(id);
         if (userId == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
