@@ -34,8 +34,9 @@ public class UserController {
         return new ResponseEntity<Optional<User>>(user, HttpStatus.OK);
     }
 
-    @GetMapping("user/{id}/recommended")
-    public ResponseEntity<List<Book>> getRecommendedBooks(@RequestParam("id") Long id)
+    //@GetMapping("user/{id}/recommended")
+    @GetMapping("/user/{id}/recommended")
+    public ResponseEntity<List<Book>> getRecommendedBooks(@PathVariable Long id)
     {
         Optional<User> userId = userRepo.findById(id);
         List<Book> recommendedBooks = new ArrayList<>();

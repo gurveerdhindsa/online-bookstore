@@ -1,11 +1,14 @@
 package Repository;
 
-import Bookstore.Book;
 import Bookstore.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepository extends MongoRepository<User, Long> {
+import java.util.Optional;
 
+@org.springframework.stereotype.Repository
+public interface UserRepository extends MongoRepository<User, Long> {
+    @Override
+    Optional<User> findById(Long id);
 
 
 }

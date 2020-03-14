@@ -19,14 +19,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 public class UserControllerTest {
 
-    /*
+
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     public void getRecommendedBooksEmptyList() throws Exception {
-        this.mockMvc.perform(get("user/2/recommended")).andDo(print()).andExpect(status().isOk());
-
-    }*/
+        this.mockMvc.perform(get("/user/2/recommended")).andDo(print()).andExpect(status().isOk());
+    }
 
 }

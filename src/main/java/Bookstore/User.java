@@ -1,5 +1,7 @@
 package Bookstore;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,9 +19,9 @@ import java.util.stream.Stream;
  * by putting them in the Shopping Cart and proceeding to Checkout.
  *
  */
-
+@Document
 public class User {
-
+    @Id
     private long userId;
     private String firstName;
     private String lastName;
