@@ -20,15 +20,14 @@ public class BookController {
 
 
     @RequestMapping("/books")
-    public List<Book> Home(@RequestBody Map<String,String> parameters)
+   // public List<Book> Home(@RequestBody Map<String,String> parameters)
+    public List<Book> Home()
     {
         List<Book> books = new ArrayList<Book>();
-        if(parameters.isEmpty())
-        {
-            return  bookrepo.findAll();
-        }
-
-
+//        if(parameters.isEmpty())
+//        {
+//            return  bookrepo.findAll();
+//        }
 
         books = bookrepo.findAll();
         return books;

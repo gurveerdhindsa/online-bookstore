@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private BookRepository bookRepo;
 
-    @GetMapping("user{id}")
+    @GetMapping("user/{id}")
     public ResponseEntity<Optional<User>> getUser(@PathVariable("id") Long id)
     {
 
