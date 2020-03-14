@@ -19,8 +19,7 @@ public class Launcher {
 
     public static void main(String[] args) throws IOException {
         SpringApplication.run(Launcher.class, args);
-//        BookImage bi = new BookImage();
-//        bi.outputSavedImages();
+
 
 
     }

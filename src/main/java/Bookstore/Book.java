@@ -1,10 +1,9 @@
 package Bookstore;
 
 import Repository.BookRepository;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.*;
-import java.util.List;
 
 /**
  * Book class
@@ -27,8 +26,6 @@ public class Book {
      * @param publisher the publisher
      * @param cost      the cost
      */
-    @Autowired
-    BookRepository bookRepo;
 
     public Book(long id, String isbn, String title, String author, String publisher, double cost, int quantity, Genre genre) {
         this.id = id;
@@ -147,7 +144,8 @@ public class Book {
      *
      * @param quantity
      */
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity; }
 
     /**
      * Gets genre.
@@ -181,7 +179,7 @@ public class Book {
         if (this == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         Book book = (Book)obj;
-        return this.isbn.equals(book.isbn) && this.publisher.equals(book.publisher) && this.author.equals(book.author) && this.cost == book.cost && this.title.equals(book.title) &&this.genre.equals(book.genre);
+        return this.isbn.equals(book.isbn) && this.author.equals(book.author) && this.cost == book.cost && this.title.equals(book.title);
     }
     /**
      * Check quantity of book

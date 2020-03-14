@@ -1,5 +1,7 @@
 package Bookstore;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,11 +19,10 @@ import java.util.stream.Stream;
  * by putting them in the Shopping Cart and proceeding to Checkout.
  *
  */
-
+@Document
 public class User {
-
+    @Id
     private long userId;
-
     private String firstName;
     private String lastName;
     private List<Book> orderedBooks;
@@ -159,7 +160,7 @@ public class User {
     {
         if (this.orderedBooks == null || otheruser.getOrderedBooks() == null)
         {
-            return null;
+            return new ArrayList<Book>();
         }
 
         List<Book> userBooks = this.orderedBooks;
@@ -187,10 +188,9 @@ public class User {
 
         if (similarity < 0.5)
         {
-            return null;
+            return new ArrayList<Book>();
         }
-        List<Book> recommendedBooks = recommendedBooks =  otherUserBooks.stream().filter(book -> (!userBooks.contains(book))).collect(Collectors.toList());
+        List<Book> recommendedBooks  =  otherUserBooks.stream().filter(book -> (!userBooks.contains(book))).collect(Collectors.toList());
         return recommendedBooks;
-
     }
 }
