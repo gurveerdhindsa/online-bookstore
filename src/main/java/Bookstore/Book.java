@@ -1,9 +1,11 @@
 package Bookstore;
 
 import Repository.BookRepository;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * Book class
@@ -17,6 +19,9 @@ public class Book {
     private long id;
     private Genre genre;
     private int quantity;
+
+    @Autowired
+    BookRepository bookrepo;
     /**
      * Instantiates a new Book.
      *
@@ -198,6 +203,9 @@ public class Book {
         String book = this.isbn + " " + this.author + " " + this.publisher + " " + String.valueOf(this.id);
         return  book;
     }
+
+
+
 
 
 
