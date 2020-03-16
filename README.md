@@ -51,6 +51,10 @@ The admin view for the frontend will also begin development during this sprint. 
 #### User database schema
 ![User database schema](screenshots/database/db-schema-user.png)
 
+
+#### UML Diagram 
+![Uml Diagram](screenshots/database/UML.jpg)
+
 ## Authors
 * **Abubakar Abdulsalam**
 * **Gurveer Dhindsa**
