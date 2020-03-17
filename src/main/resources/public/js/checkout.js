@@ -110,11 +110,5 @@ $('.checkout-btn').on('click', function(event) {
         // url: "https://amazin-online-bookstore.herokuapp.com/books"
         data: JSON.stringify(cart),
         dataType: 'json',
-        success: function () {
-            alert('success');
-        },
-        error: function () {
-            alert('failure');
-        }
     });
 });
