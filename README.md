@@ -38,11 +38,13 @@ mvn test
 
 ## Kanban
 #### Current state
-The application is integrated with Travis CI and running a production build on Heroku. The application displays a collection of books which is fetched from a NoSQL database. Currently, there is enough functionality to get a feel for how the system will work. On the frontend, there is a search engine, and filters to sort the displayed books. There are author and genre filters that are populated based on all books in the bookstore. On the backend, there is an endpoint in place to return every book and its attributes.
+##### Milestone 1
+The application is integrated with Travis CI and running a production build on Heroku. The application displays a collection of books which is fetched from a NoSQL database. Currently, there is enough functionality to get a feel for how the system will work. On the frontend, there is a search engine, and filters the displayed books. There are author and genre filters that are populated based on all books in the bookstore. On the backend, there is an endpoint in place to return every book and its attributes.
+##### Milestone 2
+Currently, the user view of the application is fully functional. The user can search, and filter through the various books in the bookstore. The search engine takes in the title of a book and displays every book that matches the criteria. In addition, there are genre and author filters in place. On the backend, there /title endpoint was upgraded to accomodate the other filters. The inventory of each book is verified prior to adding the item to the shopping cart and the checkout phase is fully functional. User and transactions are added in the Users database table. 
 
 #### Next sprint
-For the next sprint, the search engine and filters will be connected to an endpoint and the books will be displayed accordingly. To be specific, the /books endpoint will be upgraded to accept a searched book title, genre, author and a sort method. Prior to checkout, the books requested to be bought and their quantities will be verified.
-The admin view for the frontend will also begin development during this sprint. The admin will have the option of editing book information.
+In the next (and final) sprint, the admin view for the frontend will be developed. This view will allow an admin to modify the attributes of each book in the bookstore. The book recommendations for a specific user will be calculated in the backend and displayed accordingly.
 
 ## Database Schema
 #### Books database schema
