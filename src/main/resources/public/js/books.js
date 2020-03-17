@@ -1,6 +1,10 @@
 var user;
 var books;
 var allBooksHTML;
+var genreFilter = [];
+var allGenresHTML;
+var authorFilter = [];
+var allAuthorsHTML;
 var searchedBooksHTML;
 var timeout = null;
 
@@ -21,14 +25,18 @@ $(document).ready(function() {
             books = data;
             var len = books.length;
             allBooksHTML = "";
-            var genreFilter = "";
-            var authorFilter = "";
 
             if(len > 0){
                 for(var i=0;i<len;i++){
-                    if(books[i].title && books[i].author && books[i].cost){
-                        genreFilter += "<a class=\"dropdown-item\" href=\"#\">"+books[i].genre+"</a>"
-                        authorFilter += "<a class=\"dropdown-item\" href=\"#\">"+books[i].author+"</a>"
+                    if(books[i].isbn){
+                        // Only add genre to array if it wasn't added before
+                        if (genreFilter.indexOf(books[i].genre) === -1) {
+                            genreFilter.push(books[i].genre)
+                        }
+                        // Only add author to array if it wasn't added before
+                        if (authorFilter.indexOf(books[i].author) === -1) {
+                            authorFilter.push(books[i].author)
+                        }
 
                         allBooksHTML += "<div class=\"card\">" +
                             "       <div class=\"card-body\">" +
@@ -47,32 +55,61 @@ $(document).ready(function() {
                     $(".bookstore-books").append(allBooksHTML);
                 }
 
-                if(genreFilter != ""){
-                    $(".dropdown-menu-genre").append(genreFilter);
+                if(genreFilter.length > 0){
+                    allGenresHTML = ""
+                    for (var i=0; i<genreFilter.length; i++) {
+                        allGenresHTML += "<a class=\"dropdown-item\" href=\"#\">"+genreFilter[i]+"</a>"
+                    }
+
+                    $(".dropdown-menu-genre").append(allGenresHTML);
                 }
 
-                if (authorFilter != ""){
-                    $(".dropdown-menu-author").append(authorFilter);
+                if (authorFilter.length > 0){
+                    allAuthorsHTML = ""
+                    for (var i=0; i<authorFilter.length; i++) {
+                        allAuthorsHTML += "<a class=\"dropdown-item\" href=\"#\">"+authorFilter[i]+"</a>"
+                    }
+
+                    $(".dropdown-menu-author").append(allAuthorsHTML);
                 }
             }
         }
     });
 });
 
-function searchBook(searchInput) {
+function filterBooks() {
     if (timeout) {
         clearTimeout(timeout);
     }
 
-    if (searchInput.length > 0) {
+    // Get search input value
+    searchInput = $(".bookstore-filter-search").val()
+
+    // Get the contents of filters
+    selectedGenre = $(".dropdown-menu-genre").find(".dropdown-item-checked").text()
+    selectedAuthor = $(".dropdown-menu-author").find(".dropdown-item-checked").text()
+
+    if (searchInput.length > 0 || selectedGenre != "All Genres" || selectedAuthor != "All Authors") {
         timeout = setTimeout(function() {
             var data = {}
             data["title"] = searchInput
 
+            if (selectedGenre == "All Genres") {
+                data["genre"] = null
+            } else {
+                data["genre"] = selectedGenre
+            }
+
+            if (selectedAuthor == "All Authors") {
+                data["author"] = ""
+            } else {
+                data["author"] = selectedAuthor
+            }
+
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                // url: "http://localhost:8080/title",
+                // url: "http://localhost:8080/filter",
                 url: "https://amazin-online-bookstore.herokuapp.com/title",
                 data: JSON.stringify(data),
                 dataType: 'json',
@@ -137,8 +174,6 @@ function inventoryCheckFromBookAdd(buttonClicked, selectedBook) {
         buttonClicked.text = "Out of stock"
         $(buttonClicked).removeClass('valid-button')
         $(buttonClicked).addClass('disabled-button')
-    } else {
-
     }
 }
 
@@ -150,4 +185,17 @@ function inventoryCheckFromBookRemove(removedBook) {
         $(button).addClass('valid-button')
    }
 }
+
+// Tweak bootstrap dropdown components to display selected item
+$(function(){
+    $(".dropdown-menu").on('click', 'a', function(){
+        $(this).closest(".dropdown").find(".btn:first-child").text($(this).text());
+        $(this).closest(".dropdown").find(".btn:first-child").val($(this).text());
+
+        $(this).siblings(".dropdown-item-checked").removeClass("dropdown-item-checked")
+        $(this).addClass("dropdown-item-checked")
+
+        filterBooks()
+    });
+});
 

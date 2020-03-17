@@ -192,9 +192,16 @@ a:hover {
     margin-left: auto;
 }
 
-.dropdown-menu-sort {
+.dropdown-menu-sort .dropdown-menu {
     text-align: center;
     line-height: 28px;
+}
+
+.dropdown-item-checked::before {
+    position: absolute;
+    left: .4rem;
+    content: '✓';
+    font-weight: 600;
 }
 
 .row > div[class*='col-'] {

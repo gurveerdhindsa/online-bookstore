@@ -32,32 +32,34 @@
 
 <div class="bookstore-content">
     <div class="bookstore-filter">
-        <input class="bookstore-filter-search form-control" type="text" placeholder="Search for a book title" aria-label="Search" onkeyup="searchBook(this.value)">
+        <input class="bookstore-filter-search form-control" type="text" placeholder="Search for a book title" aria-label="Search" onkeyup="filterBooks()">
         <div class="dropdown bookstore-filter-dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonAuthor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Author
+            <button class="btn btn-author btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonAuthor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                All Authors
             </button>
             <div class="dropdown-menu dropdown-menu-author" aria-labelledby="dropdownMenuButtonAuthor">
+                <a class="dropdown-item dropdown-item-checked">All Authors</a>
             </div>
         </div>
 
         <div class="dropdown bookstore-filter-dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Genre
+            <button class="btn btn-genre btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonGenre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                All Genres
             </button>
             <div class="dropdown-menu dropdown-menu-genre" aria-labelledby="dropdownMenuButtonGenre">
+                <a class="dropdown-item dropdown-item-checked">All Genres</a>
             </div>
         </div>
 
-        <div class="dropdown bookstore-filter-dropdown filter-dropdown-sort">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort by
-            </button>
-            <div class="dropdown-menu dropdown-menu-sort dropdown-menu-right" aria-labelledby="dropdownMenuButtonSort">
-                <a class=\"dropdown-item\" id="sort-low-to-high">Price: Low to High</a>
-                <a class=\"dropdown-item\" id="sort-high-to-low">Price: High to Low</a>
-            </div>
-        </div>
+<!--        <div class="dropdown bookstore-filter-dropdown filter-dropdown-sort">-->
+<!--            <button class="btn btn-sort btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                Sort by-->
+<!--            </button>-->
+<!--            <div class="dropdown-menu dropdown-menu-sort dropdown-menu-right" aria-labelledby="dropdownMenuButtonSort">-->
+<!--                <a class=\"dropdown-item\" id="sort-low-to-high">Price: Low to High</a>-->
+<!--                <a class=\"dropdown-item\" id="sort-high-to-low">Price: High to Low</a>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
     <div class="books-message"></div>
