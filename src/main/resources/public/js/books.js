@@ -14,8 +14,8 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "http://localhost:8080/books"
-        // url: "https://amazin-online-bookstore.herokuapp.com/books"
+        // url: "http://localhost:8080/books"
+        url: "https://amazin-online-bookstore.herokuapp.com/books"
     }).then(function(data) {
         if(data) {
             books = data;
@@ -72,8 +72,8 @@ function searchBook(searchInput) {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "http://localhost:8080/title",
-                // url: "https://amazin-online-bookstore.herokuapp.com/title",
+                // url: "http://localhost:8080/title",
+                url: "https://amazin-online-bookstore.herokuapp.com/title",
                 data: JSON.stringify(data),
                 dataType: 'json',
                 timeout: 600000
