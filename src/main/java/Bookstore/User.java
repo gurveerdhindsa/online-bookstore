@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -75,7 +76,7 @@ public class User {
      * @return String
      */
     public String toString() {
-        return this.getUserId() + " " + this.getFirstName() + " " + this.getLastName();
+        return this.getUserId() + " " + this.getFirstName();
     }
 
     /**
@@ -165,8 +166,6 @@ public class User {
 
         List<Book> userBooks = this.orderedBooks;
         List<Book> otherUserBooks = otheruser.getOrderedBooks();
-
-
         List<Book> intersection = this.orderedBooks.stream().distinct().filter(otheruser.getOrderedBooks()::contains)
                 .collect(Collectors.toList());
         double lengthOfIntersection = intersection.size();
@@ -184,8 +183,6 @@ public class User {
 
         double lengthOfUnion = union.size();
         double similarity = lengthOfIntersection / lengthOfUnion;
-
-
         if (similarity < 0.5)
         {
             return new ArrayList<Book>();

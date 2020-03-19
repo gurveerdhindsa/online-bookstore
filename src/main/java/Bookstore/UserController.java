@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.MessageDigest;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +36,6 @@ public class UserController {
         return new ResponseEntity<Optional<User>>(user, HttpStatus.OK);
     }
 
-    //@GetMapping("user/{id}/recommended")
     @GetMapping("/user/{id}/recommended")
     public ResponseEntity<List<Book>> getRecommendedBooks(@PathVariable Long id)
     {
@@ -45,12 +46,14 @@ public class UserController {
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         User user = userId.get();
-        List<User> allOtherUsers = userRepo.findAll().stream().filter(user1 -> user1.getUserId() == user.getUserId()).collect(Collectors.toList());
+        List<User> allOtherUsers = userRepo.findAll().stream().filter(user1 -> user1.getUserId() != user.getUserId()).collect(Collectors.toList());
+        System.out.println(allOtherUsers);
 
         for(User users : allOtherUsers)
         {
             recommendedBooks.addAll(user.comparePurchaseHistory(users));
         }
+
         return  new ResponseEntity<List<Book>>(recommendedBooks, HttpStatus.OK);
     }
 
@@ -65,10 +68,17 @@ public class UserController {
         for (Book book : booksInCart) {
             if (!user.getOrderedBooks().contains(book)) {
                 user.getOrderedBooks().add(book);
+                System.out.println(book);
             }
-            bookRepo.findByIsbn(book.getIsbn()).setQuantity(bookRepo.findByIsbn(book.getIsbn()).getQuantity() - 1);
-            if (bookRepo.findByIsbn(book.getIsbn()).getQuantity() < 1) {
-                bookRepo.deleteById(bookRepo.findByIsbn(book.getIsbn()).getId());
+
+            Book thebook = bookRepo.findByIsbn(book.getIsbn());
+            thebook.setQuantity(thebook.getQuantity() - 1);
+            if (thebook.getQuantity() < 1) {
+                bookRepo.delete(thebook);
+            }
+            else
+            {
+                bookRepo.save(thebook);
             }
         }
 

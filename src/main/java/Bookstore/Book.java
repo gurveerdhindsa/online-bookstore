@@ -99,7 +99,7 @@ public class Book {
      * @return  author
      */
     public String getAuthor() {
-        return author;
+        return this.author;
     }
 
     /**
