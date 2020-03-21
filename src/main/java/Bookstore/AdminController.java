@@ -29,7 +29,7 @@ public class AdminController {
 
     @PostMapping (path = "/update" , consumes = "application/json")
     public void updateBook(@RequestBody Book book){
-        book = bookrepo.findbyId(book.getId());
+        book = bookrepo.findById(book.getId());
         bookrepo.save(book);
     }
 
