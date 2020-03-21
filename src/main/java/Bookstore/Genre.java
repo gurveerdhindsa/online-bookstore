@@ -1,5 +1,7 @@
 package Bookstore;
 
+import com.fasterxml.jackson.annotation.*;
+
 public enum Genre {
         Children,
         Fiction,
@@ -10,5 +12,10 @@ public enum Genre {
         Fantasy,
         Mystery,
         Poetry,
-        Biography
+        Biography;
+
 }
+
+
+
+

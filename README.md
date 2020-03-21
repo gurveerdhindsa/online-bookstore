@@ -2,10 +2,10 @@
 [![Build Status](https://travis-ci.com/gurveerdhindsa/online-bookstore.svg?token=Q7Wj8LGyEKmLYx5gvdog&branch=master)](https://travis-ci.com/gurveerdhindsa/online-bookstore)
 
 <p align="center">
-  <img src="screenshots/web/milestone-1-web-application.png">
+  <img src="screenshots/web/milestone-2-web-application.png">
 </p>
 
-Bookstore Owner can upload and edit Book information (ISBN, picture, description, author, publisher,...) and inventory. User can search for, and browse through, the books in the Bookstore, sort/filter them based on the above information. User can then decide to purchase one or many books by putting them in the Shopping Cart and proceeding to Checkout. The purchase itself will obviously be simulated, but purchases cannot exceed the inventory. User can also view Book Recommendations based on past purchases. This is done by looking for users whose purchases are most similar (using Jaccard distance: Google it!), and then recommending books purchased by those similar users but that the current User hasn't yet purchased.
+>Bookstore Owner can upload and edit Book information (ISBN, picture, description, author, publisher,...) and inventory. User can search for, and browse through, the books in the Bookstore, sort/filter them based on the above information. User can then decide to purchase one or many books by putting them in the Shopping Cart and proceeding to Checkout. The purchase itself will obviously be simulated, but purchases cannot exceed the inventory. User can also view Book Recommendations based on past purchases. This is done by looking for users whose purchases are most similar (using Jaccard distance: Google it!), and then recommending books purchased by those similar users but that the current User hasn't yet purchased.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -38,11 +38,15 @@ mvn test
 
 ## Kanban
 #### Current state
-The application is integrated with Travis CI and running a production build on Heroku. The application displays a collection of books which is fetched from a NoSQL database. Currently, there is enough functionality to get a feel for how the system will work. On the frontend, there is a search engine, and filters to sort the displayed books. There are author and genre filters that are populated based on all books in the bookstore. On the backend, there is an endpoint in place to return every book and its attributes.
+##### Milestone 1
+The application is integrated with Travis CI and running a production build on Heroku. The application displays a collection of books which is fetched from a NoSQL database. Currently, there is enough functionality to get a feel for how the system will work. On the frontend, there is a search engine, and filters the displayed books. There are author and genre filters that are populated based on all books in the bookstore. On the backend, there is an endpoint in place to return every book and its attributes.
+##### Milestone 2
+Currently, the user view of the application is fully functional. The user can search, and filter through the various books in the bookstore. The search engine takes in the title of a book and displays every book that matches the criteria. In addition, there are genre and author filters in place. On the backend, there /title endpoint was upgraded to accomodate the other filters. The inventory of each book is verified prior to adding the item to the shopping cart and the checkout phase is fully functional. User and transactions are added in the Users database table.
+
+As for the feedback from Milestone 1, we have created a UML diagram and removed UI components that do not have functionality. Also, we pass database credentials via environment variables on Heroku/Travis CI.
 
 #### Next sprint
-For the next sprint, the search engine and filters will be connected to an endpoint and the books will be displayed accordingly. To be specific, the /books endpoint will be upgraded to accept a searched book title, genre, author and a sort method. Prior to checkout, the books requested to be bought and their quantities will be verified.
-The admin view for the frontend will also begin development during this sprint. The admin will have the option of editing book information.
+In the next (and final) sprint, the admin view for the frontend will be developed. This view will allow an admin to modify the attributes of each book in the bookstore. The book recommendations for a specific user will be calculated in the backend and displayed accordingly.
 
 ## Database Schema
 #### Books database schema
@@ -50,6 +54,10 @@ The admin view for the frontend will also begin development during this sprint. 
 
 #### User database schema
 ![User database schema](screenshots/database/db-schema-user.png)
+
+
+#### UML Diagram 
+![Uml Diagram](screenshots/database/UML.jpg)
 
 ## Authors
 * **Abubakar Abdulsalam**

@@ -1,17 +1,13 @@
 package Bookstore;
 
 import Repository.BookRepository;
-import Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 @RestController
 public class BookController {
@@ -21,6 +17,7 @@ public class BookController {
 
 
     @RequestMapping("/books")
+   // public List<Book> Home(@RequestBody Map<String,String> parameters)
     public List<Book> Home()
     {
         List<Book> books = new ArrayList<Book>();
@@ -38,10 +35,50 @@ public class BookController {
         }
         return new ResponseEntity<List<Book>>(bookList, HttpStatus.OK);
     }
+    @RequestMapping("/filter")
+    @PostMapping(path = "/filter",  consumes={"application/json"})
+    public ResponseEntity<List<Book>> getFilter(@RequestBody Book book){
+        List<Book> filterList =  filterBooks(book.getTitle(), book.getAuthor(), book.getGenre());
+        if (filterList == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<List<Book>>(filterList, HttpStatus.OK);
+    }
+
+    public List<Book> filterBooks(String title, String author, Genre genre){
+        List<Book> b1 = null;
+        if (title != "" && author != "" && genre!= null ) {
+            b1 = bookrepo.findByTitleContainingIgnoreCaseAndAuthorAndGenre(title,author,genre);
+        }
+        else if (title !="" && author == "" && genre == null){
+            b1 = bookrepo.findByTitleContainingIgnoreCase(title);
+        }
+        else if (title == "" && author !="" && genre==null){
+            b1 = bookrepo.findByAuthor(author);
+        }
+        else if (title == "" && author == "" && genre != null){
+            b1 = bookrepo.findByGenre(genre.name());
+        }
+        else if (title !="" && author !="" && genre== null){
+            b1 = bookrepo.findByTitleContainingIgnoreCaseAndAuthor(title, author);
+        }
+        else if (title!="" && author =="" && genre!=null){
+            b1 = bookrepo.findByTitleContainingIgnoreCaseAndGenre(title, genre);
+        }
+        else if (title =="" && author !="" && genre!=null){
+            b1= bookrepo.findByAuthorAndGenre(author, genre);
+        }
+        else if (title =="" && author =="" && genre ==null){
+            b1 = bookrepo.findAll();
+        }
+        else{
+            b1 = null;
+        }
+        return b1;
+    }
 
 
     @GetMapping("/books/{id}")
-    @ResponseBody
     public ResponseEntity<Optional<Book>> getBook(@PathVariable("id") Long id)
     {
 
@@ -52,5 +89,4 @@ public class BookController {
         }
         return new ResponseEntity<Optional<Book>>(book, HttpStatus.OK);
     }
-
 }

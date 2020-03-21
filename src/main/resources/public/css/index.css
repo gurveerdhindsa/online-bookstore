@@ -149,8 +149,6 @@ ul.dropdown-cart li .item-right button{
     position: relative;
     top: 50%;
     left: 50%;
-    color: white;
-    background-color: #157af6;
 }
 
 .btn {
@@ -194,9 +192,16 @@ a:hover {
     margin-left: auto;
 }
 
-.dropdown-menu-sort {
+.dropdown-menu-sort .dropdown-menu {
     text-align: center;
     line-height: 28px;
+}
+
+.dropdown-item-checked::before {
+    position: absolute;
+    left: .4rem;
+    content: '✓';
+    font-weight: 600;
 }
 
 .row > div[class*='col-'] {
