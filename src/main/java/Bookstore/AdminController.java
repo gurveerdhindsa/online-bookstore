@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 public class AdminController {
 
@@ -28,9 +30,15 @@ public class AdminController {
     }
 
     @PostMapping (path = "/update" , consumes = "application/json")
-    public void updateBook(@RequestBody Book book){
-        book = bookrepo.findById(book.getId());
+    public ResponseEntity<Optional<Book>> updateBook(@RequestBody Book book){
+        Optional <Book> updateBook = bookrepo.findById(book.getId());
         bookrepo.save(book);
+        if (book == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Optional<Book>>(updateBook, HttpStatus.OK);
+
     }
 
 
