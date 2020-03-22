@@ -15,7 +15,7 @@ html, body {
 
 .card {
     background-color: #e9ecef;
-    height:200px;
+    height:220px;
     width:250px;
     /*margin-bottom:10px;*/
     margin: 20px;
@@ -227,5 +227,12 @@ a:hover {
 
 .bookstore-logo-icon {
     font-size: 25px;
+}
+
+.edit-book {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    cursor: pointer;
 }
 
