@@ -65,6 +65,36 @@
     <div class="books-message"></div>
 
     <div class="row col-100 bookstore-books" />
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <h3 class="modal-title"></h3>
+                <hr/>
+                <form>
+                    <div class="form-group">
+                        <label for="edit-title">Title</label>
+                        <input type="text" class="form-control" id="edit-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-author">Author</label>
+                        <input type="text" class="form-control" id="edit-author">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-genre">Genre</label>
+                        <input type="text" class="form-control" id="edit-genre">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-cost">Cost</label>
+                        <input type="number" class="form-control" id="edit-cost" min="1" step="any" />
+                    </div>
+                    <button type="submit" class="btn btn-primary edit-book-submit">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script src="/js/books.js"></script>

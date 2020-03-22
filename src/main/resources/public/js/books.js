@@ -212,7 +212,7 @@ function injectAdminFeatures() {
     // Inject admin features if they are logged in
     if (isAdmin) {
         $('.card-body').each(function(){
-            $(this).append('<i class="fas fa-edit edit-book"></i>');
+            $(this).append('<i class="fas fa-edit edit-book" data-toggle="modal" data-target=".bd-example-modal-lg"></i>');
         });
     }
 }

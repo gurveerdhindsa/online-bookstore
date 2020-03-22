@@ -236,3 +236,18 @@ a:hover {
     cursor: pointer;
 }
 
+.edit-book-submit {
+    float: right;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+.currencyinput {
+    border: 1px inset #ccc;
+}
+.currencyinput input {
+    border: 0;
+}
+
