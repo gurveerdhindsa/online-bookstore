@@ -207,8 +207,8 @@ public class BookControllerTest {
     public void findByAuthorAndGenre() throws Exception{
         Book testBook = new Book();
         testBook.setTitle("");
-        testBook.setAuthor("Megan Abbott");
-        testBook.setGenre(Genre.Crime);
+        testBook.setAuthor("Alex Michaelides");
+        testBook.setGenre(Genre.Mystery);
         String json = mapper.writeValueAsString(testBook);
         this.mockmvc.perform(post("/filter")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -217,7 +217,7 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         List<Book> bookList = bookController.filterBooks(testBook.getTitle(), testBook.getAuthor(),testBook.getGenre());
-        Assert.assertEquals(bookList.get(0).getTitle(), "Dare Me");
+        Assert.assertEquals(bookList.get(0).getTitle(), "The Silent Patient");
 
 
     }
