@@ -152,7 +152,7 @@ public class BookControllerTest {
         Book testBook = new Book();
         testBook.setTitle("");
         testBook.setAuthor("");
-        testBook.setGenre(Genre.Biography);
+        testBook.setGenre(Genre.Fantasy);
 
 
         String json = mapper.writeValueAsString(testBook);
@@ -163,15 +163,15 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         List<Book> bookList = bookController.filterBooks(testBook.getTitle(), testBook.getAuthor(),testBook.getGenre());
-        Assert.assertEquals(bookList.size(),2);
+        Assert.assertEquals(bookList.size(),1);
 
     }
 
     @Test
     public void findByTitleContainingIgnoreCaseAndAuthor() throws Exception{
         Book testBook = new Book();
-        testBook.setTitle("Moby Dick");
-        testBook.setAuthor("Herman Melville");
+        testBook.setTitle("EASTER SURPRISE (PEPPA PIG)");
+        testBook.setAuthor("Scholastic");
         testBook.setGenre(null);
 
 
@@ -183,15 +183,15 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         List<Book> bookList = bookController.filterBooks(testBook.getTitle(), testBook.getAuthor(),testBook.getGenre());
-        Assert.assertEquals(bookList.get(0).getGenre(),Genre.Adventure);
+        Assert.assertEquals(bookList.get(0).getGenre(),Genre.Fiction);
     }
 
     @Test
     public void findByTitleContainingIgnoreCaseAndGenre() throws Exception{
         Book testBook = new Book();
-        testBook.setTitle("Moby Dick");
+        testBook.setTitle("EASTER SURPRISE (PEPPA PIG)");
         testBook.setAuthor("");
-        testBook.setGenre(Genre.Adventure);
+        testBook.setGenre(Genre.Fiction);
         String json = mapper.writeValueAsString(testBook);
         this.mockmvc.perform(post("/filter")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -207,8 +207,8 @@ public class BookControllerTest {
     public void findByAuthorAndGenre() throws Exception{
         Book testBook = new Book();
         testBook.setTitle("");
-        testBook.setAuthor("Megan Abbott");
-        testBook.setGenre(Genre.Crime);
+        testBook.setAuthor("Alex Michaelides");
+        testBook.setGenre(Genre.Mystery);
         String json = mapper.writeValueAsString(testBook);
         this.mockmvc.perform(post("/filter")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -217,7 +217,7 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         List<Book> bookList = bookController.filterBooks(testBook.getTitle(), testBook.getAuthor(),testBook.getGenre());
-        Assert.assertEquals(bookList.get(0).getTitle(), "Dare Me");
+        Assert.assertEquals(bookList.get(0).getTitle(), "The Silent Patient");
 
 
     }

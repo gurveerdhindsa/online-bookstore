@@ -48,6 +48,13 @@ public class Book {
     }
 
 
+    /**
+     *
+     * @param id
+     */
+    public void setId(int id){
+        this.id= id;
+    }
 
     /**
      * Gets the Id

@@ -27,7 +27,8 @@ public interface BookRepository extends MongoRepository<Book, Long>{
     List<Book> findByTitleContainingIgnoreCaseAndAuthorAndGenre(String title, String author, Genre genre);
     List<Book> findByAuthorAndGenre(String author, Genre genre);
     void deleteByTitle(String bookTitle);
-
+    Optional<Book> findByTitle(String title);
+    List<Book> findAllByTitle(String title);
 
 }
 
