@@ -81,6 +81,7 @@ public class UserController {
             }
         }
 
+        userRepo.save(user);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
