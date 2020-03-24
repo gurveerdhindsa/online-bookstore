@@ -71,12 +71,11 @@ public class UserControllerTest {
                 20,
                 4, Bookstore.Genre.NonFiction));
         books.add(new Book(9,
-                "1503280780",
-                "Moby Dick",
-                "Herman Melville",
-                "CreateSpace Independent Publishing Platform",
-                18,
-                12,
+                 "9780374201234",
+             "The Mamba Mentality: How I play",
+             "Kobe Bryant",
+             "Farrar, Straus And Giroux",
+             45, 2,
                 Bookstore.Genre.Adventure));
         return books;
     }
@@ -87,18 +86,18 @@ public class UserControllerTest {
         bookOne.setQuantity(bookOne.getQuantity() + 1);
         bookRepo.save(bookOne);
 
-        Book bookTwo = bookRepo.findByIsbn("1503280780");
+        Book bookTwo = bookRepo.findByIsbn("9780374201234");
         bookTwo.setQuantity(bookTwo.getQuantity() + 1);
         bookRepo.save(bookTwo);
     }
 
 
 
-    @Test
+   @Test
     public void attemptCheckout() throws  Exception{
         String requestContent = objectMapper.writeValueAsString(setupCheckout());
 
-        Book sampleBook = bookRepo.findByIsbn("1503280780");
+        Book sampleBook = bookRepo.findByIsbn("9780374201234");
         int quantity = sampleBook.getQuantity();
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
@@ -107,7 +106,7 @@ public class UserControllerTest {
                 .param("id", "2")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        assertEquals(bookRepo.findByIsbn("1503280780").getQuantity(), quantity - 1);
+        assertEquals(bookRepo.findByIsbn("9780374201234").getQuantity(), quantity - 1);
         tearDownCheckout();
     }
 

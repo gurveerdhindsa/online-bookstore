@@ -27,7 +27,6 @@ public class UserController {
     @GetMapping("user/{id}")
     public ResponseEntity<Optional<User>> getUser(@PathVariable("id") Long id)
     {
-
         Optional<User> user = userRepo.findById(id);
         if (user == null)
         {
@@ -82,6 +81,7 @@ public class UserController {
             }
         }
 
+        userRepo.save(user);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
