@@ -98,18 +98,22 @@ public class AdminControllerTest {
 
     public void tearDownUpdateBookTest()
     {
-        bookRepository.delete(bookRepository.findByIsbn("1234567890"));
+        bookRepository.delete(bookRepository.findByIsbn("1234567890").get());
     }
 
     @Test
     public void updateBookTest() throws Exception {
         setUpUpdateBookTest();
-        String bookTobeUpdated = mapper.writeValueAsString(new Book(12, "1234567890",
+        String update = mapper.writeValueAsString(new Book(12, "1234567890",
                 "Sample Book", "Changed Author", "Changed Publisher",
                 45, 14, Genre.NonFiction));
-        MvcResult result = this.mockmvc.perform(post("/update").contentType(MediaType.APPLICATION_JSON)
-                .content(bookTobeUpdated).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()
-        ).andReturn();
+        MvcResult result = this.mockmvc.perform(post("/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(update)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("bookIsbn", "1234567890"))
+                .andExpect(status().isOk())
+                .andDo(print()).andReturn();
 
         String resultasString = result.getResponse().getContentAsString();
         Book updatedBook =  mapper.readValue(resultasString, Book.class);
@@ -125,7 +129,7 @@ public class AdminControllerTest {
     public void deleteBookTest() throws Exception {
 
         this.setUpUpdateBookTest();
-        this.mockmvc.perform(MockMvcRequestBuilders.delete("/delete/{isbn}", "1234567890")).andExpect(status().isOk());
+        this.mockmvc.perform(MockMvcRequestBuilders.delete("/delete/{isbn}", "1234567890")).andDo(print()).andExpect(status().isOk());
     }
 
 
