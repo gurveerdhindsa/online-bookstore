@@ -41,22 +41,20 @@ public class AdminController {
     }
 
     @PostMapping (path = "/update" , consumes = "application/json")
-    public ResponseEntity<Optional<Book>> updateBook(@RequestBody Book book){
-        Optional <Book> updateBook = bookrepo.findById(book.getId());
-        bookrepo.save(book);
-        if (book == null)
+    public ResponseEntity<Book> updateBook(@RequestBody Book book){
+        Optional <Book> bookTobeUpdated = bookrepo.findById(book.getId());
+        if (bookTobeUpdated == null)
         {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Optional<Book>>(updateBook, HttpStatus.OK);
+        bookrepo.save(book);
+        return new ResponseEntity <Book>(bookrepo.findByIsbn(book.getIsbn()), HttpStatus.OK);
 
     }
 
-
-    @DeleteMapping(path = "/delete/{bookname}")
-    public void deleteBook(@PathVariable String bookname){
-        bookrepo.deleteByTitle(bookname);
-
+    @DeleteMapping(path = "/delete/{isbn}")
+    public void deleteBook(@PathVariable String isbn){
+        bookrepo.delete(bookrepo.findByIsbn(isbn));
     }
 
 
