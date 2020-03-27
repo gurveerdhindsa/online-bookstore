@@ -93,8 +93,8 @@ public class BookControllerTest {
     @Test
     public void findByTitleContainingIgnoreCaseAndAuthorAndGenre() throws Exception{
         Book testBook = new Book();
-        testBook.setTitle("The Silent Patient");
-        testBook.setAuthor("Alex Michaelides");
+        testBook.setTitle("Me");
+        testBook.setAuthor("Megan Abbott");
         testBook.setGenre(Genre.Mystery);
 
 
@@ -112,7 +112,7 @@ public class BookControllerTest {
     @Test
     public void findByTitleContainingIgnoreCase() throws Exception{
         Book testBook = new Book();
-        testBook.setTitle("The Silent");
+        testBook.setTitle("Dare");
         testBook.setAuthor("");
         testBook.setGenre(null);
 

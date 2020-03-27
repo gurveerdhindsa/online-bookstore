@@ -20,7 +20,7 @@ public interface BookRepository extends MongoRepository<Book, Long>{
     Optional<Book> findById(Long id);
     List<Book> findByTitleContainingIgnoreCase (String title);
     List<Book> findByAuthor(String author);
-    Book findByIsbn(String isbn);
+    Optional<Book> findByIsbn(String isbn);
     List<Book> findByGenre(String genre);
     List<Book> findByTitleContainingIgnoreCaseAndAuthor(String title, String author);
     List<Book> findByTitleContainingIgnoreCaseAndGenre(String title, Genre genre);
