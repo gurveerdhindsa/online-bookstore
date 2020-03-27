@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -82,13 +83,13 @@ public class UserControllerTest {
 
     public void tearDownCheckout()
     {
-        Book bookOne = bookRepo.findByIsbn("0316097780");
-        bookOne.setQuantity(bookOne.getQuantity() + 1);
-        bookRepo.save(bookOne);
+        Optional<Book> bookOne = bookRepo.findByIsbn("0316097780");
+        bookOne.get().setQuantity(bookOne.get().getQuantity() + 1);
+        bookRepo.save(bookOne.get());
 
-        Book bookTwo = bookRepo.findByIsbn("9780374201234");
-        bookTwo.setQuantity(bookTwo.getQuantity() + 1);
-        bookRepo.save(bookTwo);
+        Optional<Book> bookTwo = bookRepo.findByIsbn("9780374201234");
+        bookTwo.get().setQuantity(bookTwo.get().getQuantity() + 1);
+        bookRepo.save(bookTwo.get());
     }
 
 
@@ -97,8 +98,8 @@ public class UserControllerTest {
     public void attemptCheckout() throws  Exception{
         String requestContent = objectMapper.writeValueAsString(setupCheckout());
 
-        Book sampleBook = bookRepo.findByIsbn("9780374201234");
-        int quantity = sampleBook.getQuantity();
+        Optional<Book> sampleBook = bookRepo.findByIsbn("9780374201234");
+        int quantity = sampleBook.get().getQuantity();
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -106,7 +107,7 @@ public class UserControllerTest {
                 .param("id", "2")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        assertEquals(bookRepo.findByIsbn("9780374201234").getQuantity(), quantity - 1);
+        assertEquals(bookRepo.findByIsbn("9780374201234").get().getQuantity(), quantity - 1);
         tearDownCheckout();
     }
 

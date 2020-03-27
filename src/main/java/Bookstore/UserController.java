@@ -70,14 +70,14 @@ public class UserController {
                 System.out.println(book);
             }
 
-            Book thebook = bookRepo.findByIsbn(book.getIsbn());
-            thebook.setQuantity(thebook.getQuantity() - 1);
-            if (thebook.getQuantity() < 1) {
-                bookRepo.delete(thebook);
+            Optional<Book> thebook = bookRepo.findByIsbn(book.getIsbn());
+            thebook.get().setQuantity(thebook.get().getQuantity() - 1);
+            if (thebook.get().getQuantity() < 1) {
+                bookRepo.delete(thebook.get());
             }
             else
             {
-                bookRepo.save(thebook);
+                bookRepo.save(thebook.get());
             }
         }
 

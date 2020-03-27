@@ -1,5 +1,6 @@
 package Bookstore;
 import Repository.BookRepository;
+import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,10 +28,9 @@ public class AdminController {
 
     @PostMapping(path ="/admin/add", consumes = "application/json")
     public void addBook(@RequestBody Book book){
-
-        Book existingBook = bookrepo.findByIsbn(book.getIsbn());
+        Book existingBook = bookrepo.findByIsbn(book.getIsbn()).get();
         if (existingBook !=null){
-            int quantity = bookrepo.findByIsbn(book.getIsbn()).getQuantity();
+            int quantity = bookrepo.findByIsbn(book.getIsbn()).get().getQuantity();
             book.setQuantity(quantity + 1);
         }
         bookrepo.save(book);
@@ -38,20 +38,26 @@ public class AdminController {
     }
 
     @PostMapping (path = "/update" , consumes = "application/json")
-    public ResponseEntity<Book> updateBook(@RequestBody Book book){
-        Optional <Book> bookTobeUpdated = bookrepo.findById(book.getId());
+    public ResponseEntity<Optional<Book>> updateBook(@RequestParam String bookIsbn, @RequestBody Book update){
+        Optional<Book> bookTobeUpdated = bookrepo.findByIsbn(bookIsbn);
         if (bookTobeUpdated == null)
         {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        bookrepo.save(book);
-        return new ResponseEntity <Book>(bookrepo.findByIsbn(book.getIsbn()), HttpStatus.OK);
+
+        System.out.println(update);
+        bookrepo.save(update);
+        return new ResponseEntity <Optional<Book>>(bookrepo.findByIsbn(update.getIsbn()), HttpStatus.OK);
 
     }
 
     @DeleteMapping(path = "/delete/{isbn}")
     public void deleteBook(@PathVariable String isbn){
-        bookrepo.delete(bookrepo.findByIsbn(isbn));
+        Optional<Book> findBook = bookrepo.findByIsbn(isbn);
+        if (findBook != null)
+        {
+            bookrepo.delete(findBook.get());
+        }
     }
 
 
