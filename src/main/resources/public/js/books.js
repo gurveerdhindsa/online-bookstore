@@ -13,9 +13,16 @@ var timeout = null;
 function promptUser(){
     user = prompt("Please enter your ID.");
 
-    if (user === "1") {
-        isAdmin = true
-    }
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "http://localhost:8080/admin/" + user
+        // url: "https://amazin-online-bookstore.herokuapp.com/admin/" + user
+    }).then(function(data) {
+        if (data) {
+            isAdmin = true
+        }
+    });
 }
 window.onload=promptUser();
 
@@ -23,8 +30,8 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        // url: "http://localhost:8080/books"
-        url: "https://amazin-online-bookstore.herokuapp.com/books"
+        url: "http://localhost:8080/books"
+        // url: "https://amazin-online-bookstore.herokuapp.com/books"
     }).then(function(data) {
         if(data) {
             books = data;
@@ -115,8 +122,8 @@ function filterBooks() {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                // url: "http://localhost:8080/filter",
-                url: "https://amazin-online-bookstore.herokuapp.com/filter",
+                url: "http://localhost:8080/filter",
+                // url: "https://amazin-online-bookstore.herokuapp.com/filter",
                 data: JSON.stringify(data),
                 dataType: 'json',
                 timeout: 600000

@@ -251,3 +251,7 @@ a:hover {
     border: 0;
 }
 
+.alert-success {
+    z-index: 10;
+}
+
