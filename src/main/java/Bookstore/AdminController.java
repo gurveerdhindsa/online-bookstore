@@ -28,7 +28,6 @@ public class AdminController {
 
     @PostMapping(path ="/admin/add", consumes = "application/json")
     public void addBook(@RequestBody Book book){
-
         Book existingBook = bookrepo.findByIsbn(book.getIsbn()).get();
         if (existingBook !=null){
             int quantity = bookrepo.findByIsbn(book.getIsbn()).get().getQuantity();
