@@ -1,4 +1,5 @@
 var user;
+var isAdmin = false;
 var books;
 var allBooksHTML;
 var genreFilter = [];
@@ -8,27 +9,36 @@ var allAuthorsHTML;
 var searchedBooksHTML;
 var timeout = null;
 
+
 function promptUser(){
     user = prompt("Please enter your ID.");
+
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: window.location.origin + "/admin/" + user
+    }).then(function(data) {
+        if (data) {
+            isAdmin = true
+        }
+    });
 }
 window.onload=promptUser();
-
 
 $(document).ready(function() {
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        // url: "http://localhost:8080/books"
-        url: "https://amazin-online-bookstore.herokuapp.com/books"
+        url: window.location.origin + "/books"
     }).then(function(data) {
         if(data) {
             books = data;
             var len = books.length;
             allBooksHTML = "";
 
-            if(len > 0){
-                for(var i=0;i<len;i++){
-                    if(books[i].isbn){
+            if(len > 0) {
+                for(var i=0;i<len;i++) {
+                    if(books[i].isbn) {
                         // Only add genre to array if it wasn't added before
                         if (genreFilter.indexOf(books[i].genre) === -1) {
                             genreFilter.push(books[i].genre)
@@ -40,7 +50,7 @@ $(document).ready(function() {
 
                         allBooksHTML += "<div class=\"card\">" +
                             "       <div class=\"card-body\">" +
-                            "           <h5 class=\"card-title\ title\">"+books[i].title+"</h5>" +
+                            "           <h6 class=\"card-title\ title\">"+books[i].title+"</h6>" +
                             "           <p class=\"card-title\ genre\">"+books[i].genre+"</p>" +
                             "           <h8 class=\"card-text\ author\">"+"by "+books[i].author+"</h8>" +
                             "           <p class=\"card-text\ cost\ item-info-cost\">"+"$"+books[i].cost+"</p>" +
@@ -51,11 +61,11 @@ $(document).ready(function() {
                     }
                 }
 
-                if(allBooksHTML != ""){
+                if(allBooksHTML != "") {
                     $(".bookstore-books").append(allBooksHTML);
                 }
 
-                if(genreFilter.length > 0){
+                if(genreFilter.length > 0) {
                     allGenresHTML = ""
                     for (var i=0; i<genreFilter.length; i++) {
                         allGenresHTML += "<a class=\"dropdown-item\" href=\"#\">"+genreFilter[i]+"</a>"
@@ -64,7 +74,7 @@ $(document).ready(function() {
                     $(".dropdown-menu-genre").append(allGenresHTML);
                 }
 
-                if (authorFilter.length > 0){
+                if (authorFilter.length > 0) {
                     allAuthorsHTML = ""
                     for (var i=0; i<authorFilter.length; i++) {
                         allAuthorsHTML += "<a class=\"dropdown-item\" href=\"#\">"+authorFilter[i]+"</a>"
@@ -73,6 +83,7 @@ $(document).ready(function() {
                     $(".dropdown-menu-author").append(allAuthorsHTML);
                 }
             }
+            injectAdminFeatures()
         }
     });
 });
@@ -109,8 +120,7 @@ function filterBooks() {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                // url: "http://localhost:8080/filter",
-                url: "https://amazin-online-bookstore.herokuapp.com/filter",
+                url: window.location.origin + "/filter",
                 data: JSON.stringify(data),
                 dataType: 'json',
                 timeout: 600000
@@ -130,7 +140,7 @@ function filterBooks() {
                         if (searchedBook[i].title && searchedBook[i].author && searchedBook[i].cost) {
                             searchedBooksHTML += "<div class=\"card\">" +
                                 "       <div class=\"card-body\">" +
-                                "           <h5 class=\"card-title\ title\">" + searchedBook[i].title + "</h5>" +
+                                "           <h6 class=\"card-title\ title\">" + searchedBook[i].title + "</h6>" +
                                 "           <p class=\"card-title\ genre\">" + searchedBook[i].genre + "</p>" +
                                 "           <h8 class=\"card-text\ author\">" + "by " + searchedBook[i].author + "</h8>" +
                                 "           <p class=\"card-text\ cost\ item-info-cost\">" + "$" + searchedBook[i].cost + "</p>" +
@@ -143,6 +153,7 @@ function filterBooks() {
 
                     $(".bookstore-books").append(searchedBooksHTML);
 
+                    injectAdminFeatures()
                 } else {
                     $(".books-message").append("<h4 class=\"no-books-found-message\">No books found :(</h4>")
                 }
@@ -158,6 +169,8 @@ function filterBooks() {
 
         // Then display all books
         $(".bookstore-books").append(allBooksHTML);
+
+        injectAdminFeatures()
     }
 }
 
@@ -186,11 +199,11 @@ function inventoryCheckFromBookRemove(removedBook) {
    }
 }
 
-// Tweak bootstrap dropdown components to display selected item
+// Tweak bootstrap dropd[own components to display selected item
 $(function(){
-    $(".dropdown-menu-filter").on('click', 'a', function(){
-        $(this).closest(".dropdown-menu-filter").find(".btn:first-child").text($(this).text());
-        $(this).closest(".dropdown-menu-filter").find(".btn:first-child").val($(this).text());
+    $(".dropdown-menu-filter").on('click', 'a', function() {
+        $(this).closest(".bookstore-filter-dropdown").find(".btn:first-child").text($(this).text());
+        $(this).closest(".bookstore-filter-dropdown").find(".btn:first-child").val($(this).text());
 
         $(this).siblings(".dropdown-item-checked").removeClass("dropdown-item-checked")
         $(this).addClass("dropdown-item-checked")
@@ -198,4 +211,13 @@ $(function(){
         filterBooks()
     });
 });
+
+function injectAdminFeatures() {
+    // Inject admin features if they are logged in
+    if (isAdmin) {
+        $('.card-body').each(function(){
+            $(this).append('<i class="fas fa-edit edit-book" data-toggle="modal" data-target=".bd-example-modal-lg"></i>');
+        });
+    }
+}
 

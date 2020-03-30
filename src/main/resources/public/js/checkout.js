@@ -79,10 +79,11 @@ $('.checkout-dropdown-toggle').on('click', function(event) {
 
 // Close the dropdown when clicked outside of its div
 $(document).mouseup(function (e){
-    var dropdown = $(".dropdown-cart");
+    var dropdown = $(".dropdown");
+
 
     if (!dropdown.is(e.target) && dropdown.has(e.target).length === 0){
-        dropdown.slideUp();
+        $(".dropdown-cart").slideUp();
     }
 });
 
@@ -94,7 +95,6 @@ function getQuantityFromCart(selectedBook) {
             quantity++;
         }
     }
-
     return quantity
 }
 
@@ -106,9 +106,21 @@ $('.checkout-btn').on('click', function(event) {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:8080/checkout/?id=" + Number(user),
-        // url: "https://amazin-online-bookstore.herokuapp.com/books"
+        url: window.location.origin + "/checkout/?id=" + Number(user),
         data: JSON.stringify(cart),
         dataType: 'json',
+        success: checkoutSuccess()
     });
+
+    function checkoutSuccess() {
+        console.log("checkout successful!")
+
+        cart = []
+        var emptyCartMessage = $(".empty-cart")
+        $(".dropdown-menu-list").empty(".item").append(emptyCartMessage)
+        $(".checkout-btn").hide()
+        $(".empty-cart").show()
+
+        alert("Checkout complete!")
+    }
 });
