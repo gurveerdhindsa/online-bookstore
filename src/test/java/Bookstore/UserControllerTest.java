@@ -94,21 +94,21 @@ public class UserControllerTest {
 
 
 
-   @Test
-    public void attemptCheckout() throws  Exception{
-        String requestContent = objectMapper.writeValueAsString(setupCheckout());
-
-        Optional<Book> sampleBook = bookRepo.findByIsbn("9780374201234");
-        int quantity = sampleBook.get().getQuantity();
-
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestContent)
-                .param("id", "2")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-        assertEquals(bookRepo.findByIsbn("9780374201234").get().getQuantity(), quantity - 1);
-        tearDownCheckout();
-    }
+//   @Test
+//    public void attemptCheckout() throws  Exception{
+//        String requestContent = objectMapper.writeValueAsString(setupCheckout());
+//
+//        Optional<Book> sampleBook = bookRepo.findByIsbn("9780374201234");
+//        int quantity = sampleBook.get().getQuantity();
+//
+//        this.mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(requestContent)
+//                .param("id", "2")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk());
+//        assertEquals(bookRepo.findByIsbn("9780374201234").get().getQuantity(), quantity - 1);
+//        tearDownCheckout();
+//    }
 
 }
