@@ -1,1 +1,8 @@
 language: java
+deploy:
+  provider: heroku
+  api_key:
+    secure: G+f0Wok0K81VvDsvnW25bEXiHHWTdGRQPxGlPU23egouZHO5chHC3gj61DnlXZ+fzhyNjYnZBu4251qrf4CLbJJacN5IqDDTG7EgZfts4SR33qI+E+sNTALHousELrBO0XlGcurewyN238HibjZ2xblMEOdiMcbGUMpREvJRepf2rDjpjSGrsI0i+bvbs6+GCkIQUuzWmbwpu6yaAA2OWXpqkSAeYkul8UL3VAN8qI4Ids22nzM6L9Tl+1AYqRr6FYGqvDv+xTY9V7P7hshh6e3sKH/vTFlXR6UNYkE0GXK/ut1M+nVV5zFbbuOCpqBNsb6ZE1a2J1SUjoqd98ZPep+kBOIpgj1R2E/L4Y1eqU68qb7N0n6PYxLLI9S0MA9riqKU/dKaXNsXAViw9/YGX1Jf6b/d+/wPmL1cpr2IOgWMq21P4u6fH3OpKubIHBxFZfLHA+VoZKTQ/mEnIP2KWNgEfFVBnZsiG1dGFNypnxB2TnstuYvkKo/GEwpPi55APRONYceqTM2Zs5DwWQr5f9jQ85U4qQKBMJIg0GFlDgCwa/NW1nuKwjJXe2qkyJ4XlFithWE4cyGpdAL+p+p2HU1DScKrCRvtxCn6zc5abb/kORVVVVHkmeJOkxV0+h+hxQu+wl2CekvuVyRwNfbM8JOXmvn+WfU0xikSkIlpS0c=
+  app: amazin-online-bookstore
+  on:
+    repo: gurveerdhindsa/online-bookstore
