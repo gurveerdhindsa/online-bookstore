@@ -34,8 +34,7 @@ $('.edit-book-submit').on('click', function(event) {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:8080/update?bookIsbn=" + Number(editedBook.isbn),
-        // url: "https://amazin-online-bookstore.herokuapp.com/update/?bookIsbn=" + Number(editedBook.isbn),
+        url: window.location.origin + "/update?bookIsbn=" + Number(editedBook.isbn),
         data: JSON.stringify(editedBook),
         dataType: 'json',
     });

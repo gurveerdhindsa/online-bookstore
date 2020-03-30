@@ -106,8 +106,7 @@ $('.checkout-btn').on('click', function(event) {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:8080/checkout/?id=" + Number(user),
-        // url: "https://amazin-online-bookstore.herokuapp.com/books"
+        url: window.location.origin + "/checkout/?id=" + Number(user),
         data: JSON.stringify(cart),
         dataType: 'json',
         success: checkoutSuccess()

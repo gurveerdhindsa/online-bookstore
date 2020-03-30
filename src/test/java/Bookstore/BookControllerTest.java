@@ -170,9 +170,9 @@ public class BookControllerTest {
     @Test
     public void findByTitleContainingIgnoreCaseAndAuthor() throws Exception{
         Book testBook = new Book();
-        testBook.setTitle("EASTER SURPRISE (PEPPA PIG)");
-        testBook.setAuthor("Scholastic");
-        testBook.setGenre(null);
+        testBook.setTitle("milk and honey");
+        testBook.setAuthor("Rupi Kaur");
+        testBook.setGenre(Genre.Poetry);
 
 
         String json = mapper.writeValueAsString(testBook);
@@ -183,15 +183,15 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         List<Book> bookList = bookController.filterBooks(testBook.getTitle(), testBook.getAuthor(),testBook.getGenre());
-        Assert.assertEquals(bookList.get(0).getGenre(),Genre.Fiction);
+        Assert.assertEquals(bookList.get(0).getGenre(),Genre.Poetry);
     }
 
     @Test
     public void findByTitleContainingIgnoreCaseAndGenre() throws Exception{
         Book testBook = new Book();
-        testBook.setTitle("EASTER SURPRISE (PEPPA PIG)");
-        testBook.setAuthor("");
-        testBook.setGenre(Genre.Fiction);
+        testBook.setTitle("milk and honey");
+        testBook.setAuthor("Rupi Kaur");
+        testBook.setGenre(Genre.Poetry);
         String json = mapper.writeValueAsString(testBook);
         this.mockmvc.perform(post("/filter")
                 .contentType(MediaType.APPLICATION_JSON)

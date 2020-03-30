@@ -16,8 +16,7 @@ function promptUser(){
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "http://localhost:8080/admin/" + user
-        // url: "https://amazin-online-bookstore.herokuapp.com/admin/" + user
+        url: window.location.origin + "/admin/" + user
     }).then(function(data) {
         if (data) {
             isAdmin = true
@@ -30,8 +29,7 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "http://localhost:8080/books"
-        // url: "https://amazin-online-bookstore.herokuapp.com/books"
+        url: window.location.origin + "/books"
     }).then(function(data) {
         if(data) {
             books = data;
@@ -122,8 +120,7 @@ function filterBooks() {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "http://localhost:8080/filter",
-                // url: "https://amazin-online-bookstore.herokuapp.com/filter",
+                url: window.location.origin + "/filter",
                 data: JSON.stringify(data),
                 dataType: 'json',
                 timeout: 600000
