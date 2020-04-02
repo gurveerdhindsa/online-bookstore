@@ -73,6 +73,21 @@ To filter the entire set of books in the bookstore, the user can search for a bo
 ### Admin view
 To access the admin view, an ID of 1 must be used upon first visiting the web application. As mentioned before, our group used this as a means to replace a complicated login system that is outside the scope of this course. The admin is shown a view similar to the general user view. In addition, the admin has the responsibility of modifying each book. This can be done by clicking on the pencil icon in the bottom left corner of a respective book. Upon clicking this icon, a form will be displayed to the admin where they can modify any attribute of the book. Upon submitting the changes, a prompt is displayed indicating whether or not the book edit was successful. If it was successful, the changes are immediately reflected in the bookstore homepage. 
 
+### Endpoints
+Admin Controller Endpoints:
+/admin/{id}: validates the id to check whether an admin (1) is accessing the page or a user
+/admin/add: an admin adds a new book to the bookstore, with the required attributes of title, author, publisher, genre, cost and inventory
+/update: admin can update the attributes of an existing book
+/delete/{isbn}: admin can delete an existing book
+
+Book Controller Endpoints:
+/books: returns all the books in the bookstore on the web page
+/filter: a user can search a book using the title, author or the genre
+
+User Controller Endpoints: 
+/user/{id}/recommended: recommends books looking at what books other users have purchased
+/checkout: purchases the books the user has added in their cart
+
 #### UML Diagram 
 ![Uml Diagram](screenshots/database/UML.jpg)
 
