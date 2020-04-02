@@ -6,7 +6,7 @@ html, body {
     font-size: 30px;
 }
 
-.bookstore-books {
+.bookstore-books .recommended-books {
     display: flex;
     /*justify-content: space-around;*/
     align-items: center;
@@ -188,8 +188,9 @@ a:hover {
     cursor:pointer;
 }
 
-.filter-dropdown-sort {
+.add-new-book {
     margin-left: auto;
+    background-color: #3CB371;
 }
 
 .dropdown-menu-sort .dropdown-menu {
@@ -255,3 +256,6 @@ a:hover {
     z-index: 10;
 }
 
+.recommended {
+    background-color: #cebdc6;
+}

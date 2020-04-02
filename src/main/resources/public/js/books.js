@@ -1,7 +1,9 @@
 var user;
 var isAdmin = false;
 var books;
+var recommendedBooks;
 var allBooksHTML;
+var recommendedBooksHTML;
 var genreFilter = [];
 var allGenresHTML;
 var authorFilter = [];
@@ -29,63 +31,89 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: window.location.origin + "/books"
+        url: window.location.origin + "/user/" + user + "/recommended"
     }).then(function(data) {
         if(data) {
-            books = data;
-            var len = books.length;
-            allBooksHTML = "";
-
-            if(len > 0) {
-                for(var i=0;i<len;i++) {
-                    if(books[i].isbn) {
-                        // Only add genre to array if it wasn't added before
-                        if (genreFilter.indexOf(books[i].genre) === -1) {
-                            genreFilter.push(books[i].genre)
-                        }
-                        // Only add author to array if it wasn't added before
-                        if (authorFilter.indexOf(books[i].author) === -1) {
-                            authorFilter.push(books[i].author)
-                        }
-
-                        allBooksHTML += "<div class=\"card\">" +
-                            "       <div class=\"card-body\">" +
-                            "           <h6 class=\"card-title\ title\">"+books[i].title+"</h6>" +
-                            "           <p class=\"card-title\ genre\">"+books[i].genre+"</p>" +
-                            "           <h8 class=\"card-text\ author\">"+"by "+books[i].author+"</h8>" +
-                            "           <p class=\"card-text\ cost\ item-info-cost\">"+"$"+books[i].cost+"</p>" +
-                            "           <p class=\"card-text\ isbn\">"+books[i].isbn+"</p>" +
-                            "           <a class=\"btn add-to-cart-btn\">Add to cart</a>" +
-                            "       </div>" +
-                            "     </div>";
-                    }
-                }
-
-                if(allBooksHTML != "") {
-                    $(".bookstore-books").append(allBooksHTML);
-                }
-
-                if(genreFilter.length > 0) {
-                    allGenresHTML = ""
-                    for (var i=0; i<genreFilter.length; i++) {
-                        allGenresHTML += "<a class=\"dropdown-item\" href=\"#\">"+genreFilter[i]+"</a>"
-                    }
-
-                    $(".dropdown-menu-genre").append(allGenresHTML);
-                }
-
-                if (authorFilter.length > 0) {
-                    allAuthorsHTML = ""
-                    for (var i=0; i<authorFilter.length; i++) {
-                        allAuthorsHTML += "<a class=\"dropdown-item\" href=\"#\">"+authorFilter[i]+"</a>"
-                    }
-
-                    $(".dropdown-menu-author").append(allAuthorsHTML);
-                }
-            }
-            injectAdminFeatures()
+            console.log("Recommended books: ", data)
+            recommendedBooks = data;
         }
-    });
+    })
+    .done (function() {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: window.location.origin + "/books"
+        }).then(function (data) {
+            if (data) {
+                books = data;
+                var len = books.length;
+                allBooksHTML = "";
+
+                if (len > 0) {
+                    for (var i = 0; i < len; i++) {
+                        var recommendedBookFlag = false;
+                        if (books[i].isbn && books[i].quantity > 0) {
+                            // Only add genre to array if it wasn't added before
+                            if (genreFilter.indexOf(books[i].genre) === -1) {
+                                genreFilter.push(books[i].genre)
+                            }
+                            // Only add author to array if it wasn't added before
+                            if (authorFilter.indexOf(books[i].author) === -1) {
+                                authorFilter.push(books[i].author)
+                            }
+
+                            // Check if the current book is a recommended book
+                            for (var j = 0; j < recommendedBooks.length; j++) {
+                                if (books[i].isbn === recommendedBooks[j].isbn) {
+                                    var recommendedBookFlag = true
+                                }
+                            }
+
+                            if (recommendedBookFlag) {
+                                allBooksHTML += "<div class=\"card\ recommended\">"
+                            } else {
+                                allBooksHTML += "<div class=\"card\">"
+                            }
+
+                            allBooksHTML +=
+                                "       <div class=\"card-body\">" +
+                                "           <h6 class=\"card-title\ title\">" + books[i].title + "</h6>" +
+                                "           <p class=\"card-title\ genre\">" + books[i].genre + "</p>" +
+                                "           <h8 class=\"card-text\ author\">" + "by " + books[i].author + "</h8>" +
+                                "           <p class=\"card-text\ cost\ item-info-cost\">" + "$" + books[i].cost + "</p>" +
+                                "           <p class=\"card-text\ isbn\">" + books[i].isbn + "</p>" +
+                                "           <a class=\"btn add-to-cart-btn\">Add to cart</a>" +
+                                "       </div>" +
+                                "     </div>";
+                        }
+                    }
+
+                    if (allBooksHTML != "") {
+                        $(".bookstore-books").append(allBooksHTML);
+                    }
+
+                    if (genreFilter.length > 0) {
+                        allGenresHTML = ""
+                        for (var i = 0; i < genreFilter.length; i++) {
+                            allGenresHTML += "<a class=\"dropdown-item\" href=\"#\">" + genreFilter[i] + "</a>"
+                        }
+
+                        $(".dropdown-menu-genre").append(allGenresHTML);
+                    }
+
+                    if (authorFilter.length > 0) {
+                        allAuthorsHTML = ""
+                        for (var i = 0; i < authorFilter.length; i++) {
+                            allAuthorsHTML += "<a class=\"dropdown-item\" href=\"#\">" + authorFilter[i] + "</a>"
+                        }
+
+                        $(".dropdown-menu-author").append(allAuthorsHTML);
+                    }
+                }
+                injectEditBookButton()
+            }
+        });
+    })
 });
 
 function filterBooks() {
@@ -153,7 +181,8 @@ function filterBooks() {
 
                     $(".bookstore-books").append(searchedBooksHTML);
 
-                    injectAdminFeatures()
+                    injectEditBookButton()
+
                 } else {
                     $(".books-message").append("<h4 class=\"no-books-found-message\">No books found :(</h4>")
                 }
@@ -170,7 +199,7 @@ function filterBooks() {
         // Then display all books
         $(".bookstore-books").append(allBooksHTML);
 
-        injectAdminFeatures()
+        injectEditBookButton()
     }
 }
 
@@ -212,12 +241,49 @@ $(function(){
     });
 });
 
-function injectAdminFeatures() {
+function injectEditBookButton() {
     // Inject admin features if they are logged in
     if (isAdmin) {
-        $('.card-body').each(function(){
-            $(this).append('<i class="fas fa-edit edit-book" data-toggle="modal" data-target=".bd-example-modal-lg"></i>');
+        $('.card-body').each(function() {
+            $(this).append('<i class="fas fa-edit edit-book" data-toggle="modal" data-target="#edit-modal"></i>');
         });
     }
+}
+
+function refreshBooks() {
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: window.location.origin + "/books"
+    }).then(function(data) {
+        // Remove all books from view
+        $(".bookstore-books").empty()
+
+        if (data && data.length > 0) {
+            // Remove no books found message
+            $(".books-message").empty()
+
+            // Then display the books that match search
+            books = data;
+            allBooksHTML = "";
+
+            for (var i = 0; i < books.length; i++) {
+                if (books[i].isbn && books[i].quantity > 0) {
+                    allBooksHTML += "<div class=\"card\">" +
+                        "       <div class=\"card-body\">" +
+                        "           <h6 class=\"card-title\ title\">" + books[i].title + "</h6>" +
+                        "           <p class=\"card-title\ genre\">" + books[i].genre + "</p>" +
+                        "           <h8 class=\"card-text\ author\">" + "by " + books[i].author + "</h8>" +
+                        "           <p class=\"card-text\ cost\ item-info-cost\">" + "$" + books[i].cost + "</p>" +
+                        "           <p class=\"card-text\ isbn\">" + books[i].isbn + "</p>" +
+                        "           <a class=\"btn add-to-cart-btn\ valid-button\">Add to cart</a>" +
+                        "       </div>" +
+                        "     </div>";
+                }
+            }
+            $(".bookstore-books").append(allBooksHTML);
+            injectEditBookButton()
+        }
+    });
 }
 

@@ -121,6 +121,8 @@ $('.checkout-btn').on('click', function(event) {
         $(".checkout-btn").hide()
         $(".empty-cart").show()
 
+        refreshBooks()
+
         alert("Checkout complete!")
     }
 });

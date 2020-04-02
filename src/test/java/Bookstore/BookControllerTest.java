@@ -106,7 +106,7 @@ public class BookControllerTest {
                 .andExpect(status().isOk());
 
         List<Book> bookList = bookController.filterBooks(testBook.getTitle(), testBook.getAuthor(),testBook.getGenre());
-        Assert.assertEquals(bookList.size(),1);
+        Assert.assertEquals(bookList.size(),0);
     }
 
     @Test
