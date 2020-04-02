@@ -1,7 +1,7 @@
 # online-bookstore
 [![Build Status](https://travis-ci.com/gurveerdhindsa/online-bookstore.svg?token=Q7Wj8LGyEKmLYx5gvdog&branch=master)](https://travis-ci.com/gurveerdhindsa/online-bookstore)
 
-# https://amazin-online-bookstore.herokuapp.com/
+### https://amazin-online-bookstore.herokuapp.com/
 
 <p align="center">
   <img src="screenshots/web/milestone-2-web-application.png">
@@ -57,6 +57,21 @@ In the final milestone, the admin view is fully developed. This view allows an a
 #### User database schema
 ![User database schema](screenshots/database/user_tableSchema.PNG)
 
+## Demo
+### Logging in
+To begin, please visit our hosted web application at https://amazin-online-bookstore.herokuapp.com/. Upon visiting the application, the user is prompted for their ID. Our group decided to use an ID as a way to identify certain users in the bookstore system. An ID can be any number and the admin ID is 1. Note, we decided to use a simple prompt instead of a fully functional login system to differentiate between users as login security is outside the scope of this course.
+
+### Viewing the books
+Upon entering an ID, the user is shown the homepage of the application. This page consists of a shopping cart, book title search engine, author filter, genre filter and a collection of books. The collection of books displays every book in the bookstore. Each book displays its title, genre, author, price and ISBN. The reccomended books for the 'logged in' user is displayed in red tint.
+
+### Purchasing books
+To purchase a book, the 'Add to cart' button must be clicked. In some cases, the quantity of a book may be minimal. If that is the case, the button is disabled and indicates it is out of stock. When the user is satisfied with their selection of books, the shopping cart icon in the top right of the page can be clicked. This brings up a dropdown consisting of the selections made. If a user had accidentally added something to their cart, they can remove the item in this dropdown. When ready to checkout their items, the user can click the 'Checkout' button. Upon a successful checkout, a prompt is displayed indicating whether or not the purchase was successful.
+
+### Filtering books
+To filter the entire set of books in the bookstore, the user can search for a book title, filter through authors or filter through genres. These 3 filters work together in conjunction, to assist our users in finding the book they are searching for!
+
+### Admin view
+To access the admin view, an ID of 1 must be used upon first visiting the web application. As mentioned before, our group used this as a means to replace a complicated login system that is outside the scope of this course. The admin is shown a view similar to the general user view. In addition, the admin has the responsibility of modifying each book. This can be done by clicking on the pencil icon in the bottom left corner of a respective book. Upon clicking this icon, a form will be displayed to the admin where they can modify any attribute of the book. Upon submitting the changes, a prompt is displayed indicating whether or not the book edit was successful. If it was successful, the changes are immediately reflected in the bookstore homepage. 
 
 #### UML Diagram 
 ![Uml Diagram](screenshots/database/UML.jpg)
