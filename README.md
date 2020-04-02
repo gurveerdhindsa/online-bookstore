@@ -75,17 +75,22 @@ To access the admin view, an ID of 1 must be used upon first visiting the web ap
 
 ### Endpoints
 Admin Controller Endpoints:
-/admin/{id}: validates the id to check whether an admin (1) is accessing the page or a user
+/admin/{id}: validates the id to check whether an admin (1) is accessing the page or a user &nbsp;
 /admin/add: an admin adds a new book to the bookstore, with the required attributes of title, author, publisher, genre, cost and inventory
+&nbsp;
 /update: admin can update the attributes of an existing book
+&nbsp;
 /delete/{isbn}: admin can delete an existing book
 
 Book Controller Endpoints:
+&nbsp;
 /books: returns all the books in the bookstore on the web page
+&nbsp;
 /filter: a user can search a book using the title, author or the genre
 
 User Controller Endpoints: 
 /user/{id}/recommended: recommends books looking at what books other users have purchased
+&nbsp;
 /checkout: purchases the books the user has added in their cart
 
 #### UML Diagram 
