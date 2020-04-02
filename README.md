@@ -1,6 +1,8 @@
 # online-bookstore
 [![Build Status](https://travis-ci.com/gurveerdhindsa/online-bookstore.svg?token=Q7Wj8LGyEKmLYx5gvdog&branch=master)](https://travis-ci.com/gurveerdhindsa/online-bookstore)
 
+# https://amazin-online-bookstore.herokuapp.com/
+
 <p align="center">
   <img src="screenshots/web/milestone-2-web-application.png">
 </p>
@@ -45,8 +47,8 @@ Currently, the user view of the application is fully functional. The user can se
 
 As for the feedback from Milestone 1, we have created a UML diagram and removed UI components that do not have functionality. Also, we pass database credentials via environment variables on Heroku/Travis CI.
 
-#### Next sprint
-In the next (and final) sprint, the admin view for the frontend will be developed. This view will allow an admin to modify the attributes of each book in the bookstore. The book recommendations for a specific user will be calculated in the backend and displayed accordingly.
+#### Milestone 3
+In the final milestone, the admin view is fully developed. This view allows an admin to modify attributes of each book in the bookstore. The recommendations for a specific user is calculated and displayed accordingly in the web application.
 
 ## Database Schema
 #### Books database schema
