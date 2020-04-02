@@ -50,7 +50,7 @@ In the next (and final) sprint, the admin view for the frontend will be develope
 
 ## Database Schema
 #### Books database schema
-![Books database schema](screenshots/database/db-schema-books.png)
+![Books database schema](screenshots/database/DB_schema.PNG)
 
 #### User database schema
 ![User database schema](screenshots/database/db-schema-user.png)
