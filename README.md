@@ -53,7 +53,7 @@ In the next (and final) sprint, the admin view for the frontend will be develope
 ![Books database schema](screenshots/database/DB_schema.PNG)
 
 #### User database schema
-![User database schema](screenshots/database/db-schema-user.png)
+![User database schema](screenshots/database/user_tableSchema.PNG)
 
 
 #### UML Diagram 
