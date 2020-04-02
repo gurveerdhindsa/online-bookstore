@@ -59,13 +59,14 @@ public class UserController {
     @PostMapping("/checkout")
     public ResponseEntity checkout(@RequestParam(value = "id", required = true) Long id, @RequestBody List<Book> booksInCart) {
         Optional<User> userId = userRepo.findById(id);
-        if (userId == null) {
+        if (!userId.isPresent()) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
         User user = userId.get();
         for (Book book : booksInCart) {
             if (!user.getOrderedBooks().contains(book)) {
+                book.setQuantity(1);
                 user.getOrderedBooks().add(book);
                 System.out.println(book);
             }

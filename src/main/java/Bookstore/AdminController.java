@@ -9,7 +9,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -43,16 +45,16 @@ public class AdminController {
     }
 
     @PostMapping (path = "/update" , consumes = "application/json")
-    public ResponseEntity<Optional<Book>> updateBook(@RequestParam String bookIsbn, @RequestBody Book update){
+    public ResponseEntity<Optional<Book>> updateBook(@RequestParam String bookIsbn, @RequestBody Book update) {
         Optional<Book> bookTobeUpdated = bookrepo.findByIsbn(bookIsbn);
-        if (bookTobeUpdated == null)
+        if (!bookTobeUpdated.isPresent())
         {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        System.out.println(update);
+        Book oldCopy = bookTobeUpdated.get();
+        update.setId(oldCopy.getId());
         bookrepo.save(update);
-        return new ResponseEntity <Optional<Book>>(bookrepo.findByIsbn(update.getIsbn()), HttpStatus.OK);
+        return new ResponseEntity <Optional<Book>>(bookrepo.findByIsbn(bookIsbn), HttpStatus.OK);
 
     }
 

@@ -52,7 +52,7 @@ public class Book {
      *
      * @param id
      */
-    public void setId(int id){
+    public void setId(long id){
         this.id= id;
     }
 
@@ -60,7 +60,7 @@ public class Book {
      * Gets the Id
      * @return  Id
      */
-    public Long getId() {
+    public long getId() {
         return  this.id;
     }
 

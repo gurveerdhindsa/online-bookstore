@@ -47,7 +47,7 @@ public class UserControllerTest {
 
     @Test
     public void getRecommendedBooksEmptyList() throws Exception {
-        MvcResult result = this.mockMvc.perform(get("/user/2/recommended")).andDo(print()).
+        MvcResult result = this.mockMvc.perform(get("/user/1/recommended")).andDo(print()).
                 andExpect(status().isOk()).andReturn();
         String resultasString = result.getResponse().getContentAsString();
         List<Book> recommendation = objectMapper.readValue(resultasString, List.class);
@@ -57,12 +57,12 @@ public class UserControllerTest {
 
     @Test
     public  void getRecommendedBookNotEmptyList() throws Exception{
-        MvcResult result = this.mockMvc.perform(get("/user/1/recommended")).andDo(print()).andExpect(status().isOk()).andReturn();
+        MvcResult result = this.mockMvc.perform(get("/user/2/recommended")).andDo(print()).andExpect(status().isOk()).andReturn();
         String resultasString = result.getResponse().getContentAsString();
         List<Book>  recommendation = objectMapper.readValue(resultasString, new TypeReference<List<Book>>(){});
         assertEquals(recommendation.size(),2);
         Book recommended = (Book)recommendation.get(0);
-        assertTrue(recommended.getAuthor().equals(new String("Alex Michaelides")));
+        assertTrue(recommended.getAuthor().equals(new String("Anthony Doerr")));
 
 
     }
@@ -75,7 +75,7 @@ public class UserControllerTest {
                 "Scribner",
                 25,
                 5, Genre.Fiction));
-        books.add(new Book(8,
+        books.add(new Book(6,
                  "1250301696",
              "The Silent Patient",
              "Alex Michaelides",
@@ -96,8 +96,10 @@ public class UserControllerTest {
         bookRepo.save(bookTwo.get());
 
         Optional<User> someUser = userRepo.findById((long) 2);
+        System.out.println(someUser.get().getOrderedBooks());
         someUser.get().getOrderedBooks().remove(bookOne);
         someUser.get().getOrderedBooks().remove(bookTwo);
+        System.out.println(someUser.get().getOrderedBooks());
         userRepo.save(someUser.get());
     }
 
@@ -113,7 +115,7 @@ public class UserControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestContent)
-                .param("id", "2")
+                .param("id", "3")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
