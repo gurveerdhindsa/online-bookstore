@@ -60,6 +60,7 @@ public class AdminControllerTest {
         testBook.setGenre(Genre.Adventure);
         testBook.setQuantity(4);
         testBook.setCost(45);
+        testBook.setIsbn("0912345678");
 
         String json = mapper.writeValueAsString(testBook);
         this.mockmvc.perform(post("/admin/add")
@@ -87,7 +88,9 @@ public class AdminControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         int quantity = bookRepository.findByTitle(testBook.getTitle()).get().getQuantity();
-        Assert.assertEquals(testBook.getQuantity()+1, quantity);
+        Assert.assertEquals(testBook.getQuantity() + 1, quantity);
+
+        bookRepository.delete(testBook);
     }
 
     public void setUpUpdateBookTest() {

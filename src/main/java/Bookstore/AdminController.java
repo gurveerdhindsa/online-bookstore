@@ -27,14 +27,19 @@ public class AdminController {
     }
 
     @PostMapping(path ="/admin/add", consumes = "application/json")
-    public void addBook(@RequestBody Book book){
-        Book existingBook = bookrepo.findByIsbn(book.getIsbn()).get();
-        if (existingBook !=null){
-            int quantity = bookrepo.findByIsbn(book.getIsbn()).get().getQuantity();
+    public ResponseEntity addBook(@RequestBody Book book){
+        System.out.println(book);
+        Optional<Book> existingBook = bookrepo.findByTitle(book.getTitle());
+
+        if (existingBook.isPresent()){
+            int quantity = bookrepo.findByTitle(book.getTitle()).get().getQuantity();
             book.setQuantity(quantity + 1);
         }
+
+
         bookrepo.save(book);
 
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping (path = "/update" , consumes = "application/json")
