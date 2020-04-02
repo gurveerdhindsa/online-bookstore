@@ -1,6 +1,7 @@
 package Bookstore;
 
 import Repository.BookRepository;
+import Repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.TypeRef;
@@ -41,9 +42,12 @@ public class UserControllerTest {
     @Autowired
     private  BookRepository bookRepo;
 
+    @Autowired
+    private UserRepository userRepo;
+
     @Test
     public void getRecommendedBooksEmptyList() throws Exception {
-        MvcResult result = this.mockMvc.perform(get("/user/2/recommended")).andDo(print()).
+        MvcResult result = this.mockMvc.perform(get("/user/1/recommended")).andDo(print()).
                 andExpect(status().isOk()).andReturn();
         String resultasString = result.getResponse().getContentAsString();
         List<Book> recommendation = objectMapper.readValue(resultasString, List.class);
@@ -53,12 +57,12 @@ public class UserControllerTest {
 
     @Test
     public  void getRecommendedBookNotEmptyList() throws Exception{
-        MvcResult result = this.mockMvc.perform(get("/user/1/recommended")).andDo(print()).andExpect(status().isOk()).andReturn();
+        MvcResult result = this.mockMvc.perform(get("/user/2/recommended")).andDo(print()).andExpect(status().isOk()).andReturn();
         String resultasString = result.getResponse().getContentAsString();
         List<Book>  recommendation = objectMapper.readValue(resultasString, new TypeReference<List<Book>>(){});
         assertEquals(recommendation.size(),2);
         Book recommended = (Book)recommendation.get(0);
-        assertTrue(recommended.getAuthor().equals(new String("Alex Michaelides")));
+        assertTrue(recommended.getAuthor().equals(new String("Anthony Doerr")));
 
 
     }
@@ -66,49 +70,57 @@ public class UserControllerTest {
     public List<Book> setupCheckout()
     {
         List<Book> books = new ArrayList<>();
-        books.add(new Book(10, "0316097780",
-                "Dare Me", "Megan Abbott",
-                "Reagan Arthur Books",
-                20,
-                4, Bookstore.Genre.NonFiction));
-        books.add(new Book(9,
-                 "9780374201234",
-             "The Mamba Mentality: How I play",
-             "Kobe Bryant",
-             "Farrar, Straus And Giroux",
-             45, 2,
-                Bookstore.Genre.Adventure));
+        books.add(new Book(5, "1501173219",
+                "All the Light We Cannot See: A Novel", "Anthony Doerr",
+                "Scribner",
+                25,
+                5, Genre.Fiction));
+        books.add(new Book(6,
+                 "1250301696",
+             "The Silent Patient",
+             "Alex Michaelides",
+             "Celadon Books",
+             29, 5,
+                Genre.Mystery));
         return books;
     }
 
     public void tearDownCheckout()
     {
-        Optional<Book> bookOne = bookRepo.findByIsbn("0316097780");
+        Optional<Book> bookOne = bookRepo.findByIsbn("1501173219");
         bookOne.get().setQuantity(bookOne.get().getQuantity() + 1);
         bookRepo.save(bookOne.get());
 
-        Optional<Book> bookTwo = bookRepo.findByIsbn("9780374201234");
+        Optional<Book> bookTwo = bookRepo.findByIsbn("1250301696");
         bookTwo.get().setQuantity(bookTwo.get().getQuantity() + 1);
         bookRepo.save(bookTwo.get());
+
+        Optional<User> someUser = userRepo.findById((long) 2);
+        System.out.println(someUser.get().getOrderedBooks());
+        someUser.get().getOrderedBooks().remove(bookOne);
+        someUser.get().getOrderedBooks().remove(bookTwo);
+        System.out.println(someUser.get().getOrderedBooks());
+        userRepo.save(someUser.get());
     }
 
 
 
-//   @Test
-//    public void attemptCheckout() throws  Exception{
-//        String requestContent = objectMapper.writeValueAsString(setupCheckout());
-//
-//        Optional<Book> sampleBook = bookRepo.findByIsbn("9780374201234");
-//        int quantity = sampleBook.get().getQuantity();
-//
-//        this.mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestContent)
-//                .param("id", "2")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
-//        assertEquals(bookRepo.findByIsbn("9780374201234").get().getQuantity(), quantity - 1);
-//        tearDownCheckout();
-//    }
+   @Test
+    public void attemptCheckout() throws  Exception{
+        String requestContent = objectMapper.writeValueAsString(setupCheckout());
+
+        Optional<Book> sampleBook = bookRepo.findByIsbn("1250301696");
+        int quantity = sampleBook.get().getQuantity();
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/checkout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestContent)
+                .param("id", "3")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+        assertEquals(bookRepo.findByIsbn("1250301696").get().getQuantity(), quantity - 1);
+        tearDownCheckout();
+    }
 
 }

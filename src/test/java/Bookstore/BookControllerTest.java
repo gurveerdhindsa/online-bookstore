@@ -93,9 +93,9 @@ public class BookControllerTest {
     @Test
     public void findByTitleContainingIgnoreCaseAndAuthorAndGenre() throws Exception{
         Book testBook = new Book();
-        testBook.setTitle("Me");
-        testBook.setAuthor("Megan Abbott");
-        testBook.setGenre(Genre.Mystery);
+        testBook.setTitle("Tale");
+        testBook.setAuthor("Margaret Atwood");
+        testBook.setGenre(Genre.Fiction);
 
 
         String json = mapper.writeValueAsString(testBook);
@@ -112,7 +112,7 @@ public class BookControllerTest {
     @Test
     public void findByTitleContainingIgnoreCase() throws Exception{
         Book testBook = new Book();
-        testBook.setTitle("Dare");
+        testBook.setTitle("milk");
         testBook.setAuthor("");
         testBook.setGenre(null);
 
